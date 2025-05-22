@@ -1,22 +1,107 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>COP 4331 LAMP Stack Demo</title>
-	<script type="text/javascript" src="js/md5.js"></script>
-	<script type="text/javascript" src="js/code.js"></script>
-    <link href="css/styles.css" rel="stylesheet">	
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COP4331 | Project 1</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
+
+
 <body>
+  <div class="wrapper">
+    <h1>Welcome!</h1>
+    <ul>
+      <li><a href="#" class="link">Home</a></li>
+      <li><a href="#" class="link">About</a></li>
+    </ul>
+  </div>
 
-<h1 id="title">COP 4331 LAMP Stack Demo</h1>
+  <div class="nav-button">
+    <button class="btn-white" id="loginbtn" onclick="login()">Sign In</button>
+    <button class="btn" id="registerbtn" onclick="register()">Sign Up</button>
+  </div>
 
-<div id="loginDiv">
-	<span id="inner-title">PLEASE LOG IN</span>
-	<input type="text" id="loginName" placeholder="Username" /><br />
-	<input type="password" id="loginPassword" placeholder="Password"/><br />
-	<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Do It </button>
-	<span id="loginResult"></span>
-</div>
+  <div class="box-containner">
+    <!-- Login Form -->
+    <div class="login" id="login">
+      <div class="top">
+        <span>Have an account? <a href="#" onclick="register()">Sign Up</a></span>
+        <h3>Login</h3>
+      </div>
 
+      <div class="form-box">
+        <input type="text" class="input-field" placeholder="Username or Email">
+      </div>
+      <div class="form-box">
+        <input type="password" class="input-field" placeholder="Password">
+      </div>
+      <div class="form-box">
+        <input type="submit" class="submit" value="Login">
+      </div>
+
+      <div class="two-col">
+        <div class="one">
+          <input type="checkbox" id="login-check">
+          <label for="login-check">Remember me</label>
+        </div>
+        <div class="two">
+          <label><a href="#">Forgot password?</a></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Register Form -->
+    <div class="register" id="register">
+      <div class="top">
+        <span>Don't have an account? <a href="#" onclick="login()">Login</a></span>
+        <h3>Sign Up</h3>
+      </div>
+
+      <div class="form-box">
+        <input type="text" class="input-field" placeholder="First Name">
+      </div>
+      <div class="form-box">
+        <input type="text" class="input-field" placeholder="Last Name">
+      </div>
+      <div class="form-box">
+        <input type="text" class="input-field" placeholder="Email">
+      </div>
+      <div class="form-box">
+        <input type="password" class="input-field" placeholder="Password">
+      </div>
+      <div class="form-box">
+        <input type="submit" class="submit" value="Register">
+      </div>
+
+      <div class="box">
+        <input type="checkbox" id="register-check">
+        <label for="register-check">Remember me</label>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var a = document.getElementById("loginbtn");
+    var b = document.getElementById("registerbtn");
+    var x = document.getElementById("login");
+    var y = document.getElementById("register");
+
+    function login() {
+      x.style.left = "4px";
+      y.style.right = "-520px";
+      a.classList.add("btn");
+      b.classList.remove("btn");
+    }
+
+    function register() {
+      x.style.left = "-510px";
+      y.style.right = "5px";
+      a.classList.remove("btn");
+      b.classList.add("btn");
+    }
+  </script>
 </body>
 </html>
