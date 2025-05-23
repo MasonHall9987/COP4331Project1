@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>COP4331 | Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <div class="wrapper">
+    <h1>Welcome!!!!!!</h1>
+    <ul>
+      <li><a href="#add-contact" class="link">Add Contact</a></li>
+      <li><a href="#about" class="link">About</a></li>
+    </ul>
+  
+
+  <div class="nav-button">
+    <button class="btn" onclick="logout()">Logout</button>
+  </div>
+  </div>
+
+  <div class="box-containner" id="add-contact">
+    <h3>Add Contact</h3>
+    <div class="form-box">
+      <input type="text" class="input-field" placeholder="First Name" id="contactFirstName" />
+    </div>
+    <div class="form-box">
+      <input type="text" class="input-field" placeholder="Last Name" id="contactLastName" />
+    </div>
+    <div class="form-box">
+      <input type="text" class="input-field" placeholder="Phone Number" id="contactPhone" />
+    </div>
+    <div class="form-box">
+      <input type="text" class="input-field" placeholder="Email" id="contactEmail" />
+    </div>
+    <div class="form-box">
+      <input type="submit" class="submit" value="Add Contact" onclick="addContact()" />
+    </div>
+  </div>
+
+ 
+
+  <script>
+    function logout() {
+      // Clear local storage/session and redirect to login page
+      alert("Logging out...");
+      window.location.href = "index.html";
+    }
+
+    function addContact() {
+      const firstName = document.getElementById("contactFirstName").value;
+      const lastName = document.getElementById("contactLastName").value;
+      const phone = document.getElementById("contactPhone").value;
+      const email = document.getElementById("contactEmail").value;
+
+      if (!firstName || !lastName || !phone || !email) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      // Simulate adding contact
+      alert(`Contact added: ${firstName} ${lastName}`);
+      // You would POST this data to the backend here
+    }
+  </script>
+</body>
+</html>
