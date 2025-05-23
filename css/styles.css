@@ -15,37 +15,7 @@ body{
     position: relative;
 
 }
-.wrapper{
-    position: absolute; 
-    justify-content:space-between;  
-    top: 0;
-    left: 400px;
-    display: flex;
-    
-    gap:10px;
-}
-.wrapper h1{  
-    position: fixed;
-    top : 0;
-    left: 0;   
-    color: gray;
-    text-shadow: 1px 1px 2px white;
-    
-}
 
-.wrapper ul{
-    list-style: none;
-    display: flex;
-    gap: 15px;
-}
-
-.wrapper .link{
-    margin: 0 15px;
-    padding-bottom: 15px;
-    text-decoration: none;
-    font-weight: 500;
-    color: #555;
-}
 
 .nav-button {
     position: fixed;
@@ -82,7 +52,7 @@ body{
 }
 
 .box-containner{
-   position: relative;
+     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -92,7 +62,9 @@ body{
     border-radius: 12px;
     padding: 20px;
     overflow: hidden;
-    z-index: 2;
+    z-index: 2; 
+
+
 }
 
 .login, .register {
@@ -148,8 +120,6 @@ h3{
     border-radius: 20px;
     outline: none;
     margin-bottom: 15px;
-    
-    
 }
 
 
