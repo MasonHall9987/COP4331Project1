@@ -4,23 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>COP4331 | Dashboard</title>
-  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="dashboard.css" />
 </head>
 <body>
+
   <div class="wrapper">
     <h1>Welcome!!!!!!</h1>
     <ul>
-      <li><a href="#add-contact" class="link">Add Contact</a></li>
-      <li><a href="#about" class="link">About</a></li>
+      <li><a href="#" class="link" onclick="showAddContact()">Add Contact</a></li>
+      <li><a href="#" class="link" onclick="showAbout()">About</a></li>
     </ul>
-  
-
-  <div class="nav-button">
-    <button class="btn" onclick="logout()">Logout</button>
-  </div>
   </div>
 
-  <div class="box-containner" id="add-contact">
+  <div class="box-container" id="add-contact">
     <h3>Add Contact</h3>
     <div class="form-box">
       <input type="text" class="input-field" placeholder="First Name" id="contactFirstName" />
@@ -39,11 +35,22 @@
     </div>
   </div>
 
- 
+  <div class="about-container hidden" id="about">
+    <h2>About Us</h2>
+    <p>
+      <strong>Hall, Madson:</strong> Database, API<br/>
+      <strong>Lee, Brian:</strong> Project Manager<br/>
+      <strong>Chaj-Mejia, Junior:</strong> Front-end<br/>
+      <strong>Tran, Tuyen:</strong> Front-end<br/>
+    </p>
+  </div>
+
+  <div class="logout-button">
+    <button class="btn" onclick="logout()">Logout</button>
+  </div>
 
   <script>
     function logout() {
-      // Clear local storage/session and redirect to login page
       alert("Logging out...");
       window.location.href = "index.html";
     }
@@ -59,10 +66,23 @@
         return;
       }
 
-      // Simulate adding contact
       alert(`Contact added: ${firstName} ${lastName}`);
-      // You would POST this data to the backend here
+    }
+
+    function showAbout() {
+      document.getElementById("add-contact").classList.add("hidden");
+      const about = document.getElementById("about");
+      about.classList.remove("hidden");
+      about.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function showAddContact() {
+      document.getElementById("about").classList.add("hidden");
+      const addContact = document.getElementById("add-contact");
+      addContact.classList.remove("hidden");
+      addContact.scrollIntoView({ behavior: "smooth" });
     }
   </script>
+
 </body>
 </html>
