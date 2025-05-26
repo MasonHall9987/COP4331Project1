@@ -8,7 +8,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: url(p.jpg) no-repeat center center fixed;
+  background: url("p.jpg") no-repeat center center fixed;
   background-size: cover;
   min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -38,7 +38,6 @@ body {
   list-style: none;
   display: flex;
   gap: 20px;
-  
 }
 
 .wrapper .link {
@@ -46,21 +45,14 @@ body {
   color: #333;
   font-weight: 500;
   transition: color 0.3s ease;
-
-  
 }
 
 .wrapper .link:hover {
   color: #007bff;
 }
 
-.nav-button {
-  position: fixed;
-  right: 10px;
-}
-
 .btn {
-  background-color: #555;
+  background-color: #7a7b80;
   color: white;
   padding: 8px 16px;
   border: none;
@@ -75,7 +67,8 @@ body {
   background-color: #333;
 }
 
-.box-containner {
+.box-container,
+.about-container {
   background-color: rgba(255, 255, 255, 0.85);
   padding: 30px;
   border-radius: 12px;
@@ -85,7 +78,8 @@ body {
   text-align: center;
 }
 
-.box-containner h3 {
+.box-container h3,
+.about-container h2 {
   font-size: 22px;
   color: #333;
   margin-bottom: 20px;
@@ -119,9 +113,17 @@ body {
   background-color: #777;
 }
 
-#about p {
+.about-container p {
   font-size: 14px;
   color: #444;
   line-height: 1.6;
   margin-top: 10px;
+}
+
+.logout-button {
+  margin: 20px auto;
+}
+
+.hidden {
+  display: none;
 }
