@@ -8,8 +8,6 @@
   <link rel="stylesheet" href="styles.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
-
-
 <body>
 
   <div class="nav-button">
@@ -32,7 +30,7 @@
         <input type="password" class="input-field" placeholder="Password">
       </div>
       <div class="form-box">
-        <input type="submit" class="submit" value="Login">
+        <input type="submit" class="submit" value="Login" onclick="doLogin()">
       </div>
 
       <div class="two-col">
@@ -95,6 +93,19 @@
       a.classList.remove("btn");
       b.classList.add("btn");
     }
+
+    function doLogin() {
+      const username = document.querySelector(".login input[placeholder='Username or Email']").value;
+      const password = document.querySelector(".login input[placeholder='Password']").value;
+
+      if (username && password) {
+        // Simulate login success
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Please enter username and password.");
+      }
+    }
   </script>
+
 </body>
 </html>
