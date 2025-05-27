@@ -1,36 +1,67 @@
 <?php
 	$inData = getRequestInfo();
 
-	$firstName = "%" . $inData["firstName"] . "%";
-	$lastName = "%" . $inData["lastName"] . "%";
-	$phone = "%" . $inData["phone"] . "%";
-	$email = "%" . $inData["email"] . "%";
 	$userId = $inData["userId"];
+	if (!isset($userId)) {
+		returnWithError("Missing required parameter: userId");
+		exit();
+	}
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error) 
 	{
 		returnWithError($conn->connect_error);
+		exit();
 	} 
-	else
-	{
-		// Search query with LIKE for partial matching
-		$stmt = $conn->prepare("SELECT ID, FirstName, LastName, Phone, Email FROM Contacts WHERE UserID = ? AND FirstName LIKE ? AND LastName LIKE ? AND Phone LIKE ? AND Email LIKE ?");
-		$stmt->bind_param("issss", $userId, $firstName, $lastName, $phone, $email);
-		$stmt->execute();
 
-		$result = $stmt->get_result();
+	// Base query
+	$query = "SELECT ID, FirstName, LastName, Phone, Email FROM Contacts WHERE UserID = ?";
+	$params = array();
+$types = "i"; // userId is always required, integer type
+$params[] = $userId;
 
-		$contacts = array();
-		while($row = $result->fetch_assoc()) {
-			$contacts[] = $row;
-		}
-
-		$stmt->close();
-		$conn->close();
-
-		echo json_encode(array("results" => $contacts, "error" => ""));
+	// Optional filters
+	if (!empty($inData["firstName"])) {
+		$query .= " AND FirstName LIKE ?";
+		$types .= "s";
+		$params[] = "%" . $inData["firstName"] . "%";
 	}
+	if (!empty($inData["lastName"])) {
+		$query .= " AND LastName LIKE ?";
+		$types .= "s";
+		$params[] = "%" . $inData["lastName"] . "%";
+	}
+	if (!empty($inData["phone"])) {
+		$query .= " AND Phone LIKE ?";
+		$types .= "s";
+		$params[] = "%" . $inData["phone"] . "%";
+	}
+	if (!empty($inData["email"])) {
+		$query .= " AND Email LIKE ?";
+		$types .= "s";
+		$params[] = "%" . $inData["email"] . "%";
+	}
+
+	// Prepare and bind
+	$stmt = $conn->prepare($query);
+	if ($stmt === false) {
+		returnWithError("SQL Prepare failed: " . $conn->error);
+		exit();
+	}
+
+	$stmt->bind_param($types, ...$params);
+	$stmt->execute();
+	$result = $stmt->get_result();
+
+	$contacts = array();
+	while($row = $result->fetch_assoc()) {
+		$contacts[] = $row;
+	}
+
+	$stmt->close();
+	$conn->close();
+
+	echo json_encode(array("results" => $contacts, "error" => ""));
 
 	function getRequestInfo()
 	{
@@ -39,7 +70,6 @@
 
 	function returnWithError($err)
 	{
-		$retValue = '{"results":[], "error":"' . $err . '"}';
-		echo $retValue;
+		echo json_encode(array("results" => [], "error" => $err));
 	}
 ?>
