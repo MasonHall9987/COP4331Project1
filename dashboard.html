@@ -12,10 +12,12 @@
     <h1>Welcome!!!!!!</h1>
     <ul>
       <li><a href="#" class="link" onclick="showAddContact()">Add Contact</a></li>
+      <li><a href="#" class="link" onclick="showSearchContact()">Search Contact</a></li>
       <li><a href="#" class="link" onclick="showAbout()">About</a></li>
     </ul>
   </div>
 
+  <!-- Add Contact Section -->
   <div class="box-container" id="add-contact">
     <h3>Add Contact</h3>
     <div class="form-box">
@@ -35,6 +37,19 @@
     </div>
   </div>
 
+  <!-- Search Contact Section -->
+  <div class="box-container hidden" id="search-contact">
+    <h3>Search Contact</h3>
+    <div class="form-box">
+      <input type="text" class="input-field" placeholder="Enter name, email or phone" id="searchInput" />
+    </div>
+    <div class="form-box">
+      <input type="submit" class="submit" value="Search" onclick="searchContact()" />
+    </div>
+    <div class="form-box" id="searchResults"></div>
+  </div>
+
+  <!-- About Section -->
   <div class="about-container hidden" id="about">
     <h2>About Us</h2>
     <p>
@@ -45,6 +60,7 @@
     </p>
   </div>
 
+  <!-- Logout Button -->
   <div class="logout-button">
     <button class="btn" onclick="logout()">Logout</button>
   </div>
@@ -69,18 +85,40 @@
       alert(`Contact added: ${firstName} ${lastName}`);
     }
 
-    function showAbout() {
-      document.getElementById("add-contact").classList.add("hidden");
-      const about = document.getElementById("about");
-      about.classList.remove("hidden");
-      about.scrollIntoView({ behavior: "smooth" });
+    function searchContact() {
+      const query = document.getElementById("searchInput").value.trim();
+
+      if (!query) {
+        alert("Please enter a search term.");
+        return;
+      }
+
+      const resultsBox = document.getElementById("searchResults");
+      resultsBox.innerHTML = `<p>Searching for: <strong>${query}</strong></p>`;
     }
 
     function showAddContact() {
+      hideAllSections();
+      document.getElementById("add-contact").classList.remove("hidden");
+      document.getElementById("add-contact").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function showSearchContact() {
+      hideAllSections();
+      document.getElementById("search-contact").classList.remove("hidden");
+      document.getElementById("search-contact").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function showAbout() {
+      hideAllSections();
+      document.getElementById("about").classList.remove("hidden");
+      document.getElementById("about").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function hideAllSections() {
+      document.getElementById("add-contact").classList.add("hidden");
+      document.getElementById("search-contact").classList.add("hidden");
       document.getElementById("about").classList.add("hidden");
-      const addContact = document.getElementById("add-contact");
-      addContact.classList.remove("hidden");
-      addContact.scrollIntoView({ behavior: "smooth" });
     }
   </script>
 
