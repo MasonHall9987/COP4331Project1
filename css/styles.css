@@ -58,7 +58,7 @@ body{
     align-items: center;
     width: 512px;
     height: 420px;
-    background-color: rgba(149, 165, 127, 0.8);
+    background-color: transparent;
     border-radius: 12px;
     padding: 20px;
     overflow: hidden;
