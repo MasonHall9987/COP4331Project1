@@ -1,4 +1,4 @@
-const urlBase = 'http://COP4331-5.com/LAMPAPI';
+const urlBase = 'http://cop4331project.online/LAMPAPI';
 const extension = 'php';
 
 let userId = 0;
@@ -46,7 +46,7 @@ function doLogin()
 
 				saveCookie();
 	
-				window.location.href = "color.html";
+				window.location.href = "contact.html";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -108,48 +108,61 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
-function addColor()
+function addContact()
 {
-	let newColor = document.getElementById("colorText").value;
-	document.getElementById("colorAddResult").innerHTML = "";
+    let firstName = document.getElementById("firstName").value;
+    let lastName = document.getElementById("lastName").value;
+    let phone = document.getElementById("phone").value;
+    let email = document.getElementById("email").value;
 
-	let tmp = {color:newColor,userId,userId};
-	let jsonPayload = JSON.stringify( tmp );
+    document.getElementById("contactAddResult").innerHTML = "";
 
-	let url = urlBase + '/AddColor.' + extension;
-	
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("colorAddResult").innerHTML = err.message;
-	}
-	
+    let tmp = {
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        email: email,
+        userId: userId
+    };
+    let jsonPayload = JSON.stringify(tmp);
+
+    let url = urlBase + '/AddContact.' + extension; // Adjust URL to your PHP endpoint
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try
+    {
+        xhr.onreadystatechange = function() 
+        {
+            if (this.readyState == 4 && this.status == 200) 
+            {
+                let response = JSON.parse(xhr.responseText);
+                if(response.error === "")
+                    document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+                else
+                    document.getElementById("contactAddResult").innerHTML = "Error: " + response.error;
+            }
+        };
+        xhr.send(jsonPayload);
+    }
+    catch(err)
+    {
+        document.getElementById("contactAddResult").innerHTML = err.message;
+    }
 }
 
-function searchColor()
+function searchContacts()
 {
 	let srch = document.getElementById("searchText").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
+	document.getElementById("contactSearchResult").innerHTML = "";
 	
-	let colorList = "";
+	let contactList = "";
 
-	let tmp = {search:srch,userId:userId};
-	let jsonPayload = JSON.stringify( tmp );
+	let tmp = {search: srch, userId: userId};
+	let jsonPayload = JSON.stringify(tmp);
 
-	let url = urlBase + '/SearchColors.' + extension;
+	let url = urlBase + '/SearchContacts.' + extension;
 	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -160,26 +173,175 @@ function searchColor()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
-				let jsonObject = JSON.parse( xhr.responseText );
+				document.getElementById("contactSearchResult").innerHTML = "Contact(s) have been retrieved";
+				let jsonObject = JSON.parse(xhr.responseText);
 				
-				for( let i=0; i<jsonObject.results.length; i++ )
-				{
-					colorList += jsonObject.results[i];
-					if( i < jsonObject.results.length - 1 )
-					{
-						colorList += "<br />\r\n";
+				if (jsonObject.error && jsonObject.error !== "") {
+					document.getElementById("contactSearchResult").innerHTML = "Error: " + jsonObject.error;
+					return;
+				}
+
+				for (let i = 0; i < jsonObject.results.length; i++) {
+					let c = jsonObject.results[i];
+					contactList += c.FirstName + " " + c.LastName + " - " + c.Phone + " - " + c.Email;
+					if (i < jsonObject.results.length - 1) {
+						contactList += "<br />\r\n";
 					}
 				}
 				
-				document.getElementsByTagName("p")[0].innerHTML = colorList;
+				document.getElementById("contactSearchResult").innerHTML = contactList;
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
+		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
-	
 }
+
+function doSignup()
+{
+	let firstName = document.getElementById("signupFirstName").value;
+	let lastName = document.getElementById("signupLastName").value;
+	let login = document.getElementById("signupLogin").value;
+	let password = document.getElementById("signupPassword").value;
+
+	document.getElementById("signupResult").innerHTML = "";
+
+	let tmp = {
+		firstName: firstName,
+		lastName: lastName,
+		login: login,
+		password: password
+	};
+
+	let jsonPayload = JSON.stringify(tmp);
+
+	let url = urlBase + '/Signup.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				let jsonObject = JSON.parse(xhr.responseText);
+
+				if (jsonObject.error !== "")
+				{
+					document.getElementById("signupResult").innerHTML = jsonObject.error;
+					return;
+				}
+
+				document.getElementById("signupResult").innerHTML = "Signup successful! Please log in.";
+			}
+		};
+
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("signupResult").innerHTML = err.message;
+	}
+}
+
+	// Your existing readCookie function (with cookie parsing fix)
+function readCookie() {
+    userId = -1;
+    let data = document.cookie;
+    let splits = data.split("; ");
+
+    for (var i = 0; i < splits.length; i++) {
+        let thisOne = splits[i].trim();
+        let tokens = thisOne.split("=");
+        if (tokens[0] == "firstName") {
+            firstName = tokens[1];
+        } else if (tokens[0] == "lastName") {
+            lastName = tokens[1];
+        } else if (tokens[0] == "userId") {
+            userId = parseInt(tokens[1].trim());
+        }
+    }
+
+    if (userId < 0) {
+        window.location.href = "contact.html"; // redirect to login
+    } else {
+        document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+    }
+}
+
+// Your readContacts function that uses the userId set by readCookie
+function readContacts() {
+    readCookie(); // ensure userId is set from cookies
+
+    if (userId < 0) {
+        return; // user not logged in, no need to continue
+    }
+
+    let tmp = { userId: userId };
+    let jsonPayload = JSON.stringify(tmp);
+
+    let url = urlBase + '/ReadContacts.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            let jsonObject = JSON.parse(xhr.responseText);
+            // Handle the contacts display here using jsonObject
+            let contactsList = "";
+            for (let i = 0; i < jsonObject.results.length; i++) {
+                let c = jsonObject.results[i];
+                contactsList += `${c.FirstName} ${c.LastName} - ${c.Phone} - ${c.Email}<br>`;
+            }
+            document.getElementById("contacts").innerHTML = contactsList;
+        }
+    };
+
+    xhr.send(jsonPayload);
+
+
+}
+
+function deleteContact(contactId) {
+    document.getElementById("deleteResult").innerHTML = "";
+
+    let tmp = { id: contactId };
+    let jsonPayload = JSON.stringify(tmp);
+
+    let url = urlBase + '/DeleteContact.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try {
+        xhr.onreadystatechange = function() {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    let jsonObject = JSON.parse(xhr.responseText);
+                    if (jsonObject.error === "") {
+                        document.getElementById("deleteResult").innerHTML = jsonObject.message || "Contact deleted successfully.";
+                        // Optionally refresh the contact list here
+                    } else {
+                        document.getElementById("deleteResult").innerHTML = "Error: " + jsonObject.error;
+                    }
+                } else {
+                    document.getElementById("deleteResult").innerHTML = "Request failed: " + this.statusText;
+                }
+            }
+        };
+        xhr.send(jsonPayload);
+    } catch (err) {
+        document.getElementById("deleteResult").innerHTML = err.message;
+    }
+}
+
+
