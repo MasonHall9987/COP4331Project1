@@ -7,41 +7,33 @@
   <title>COP4331 | Project 1</title>
   <link rel="stylesheet" href="css/styles.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <script type="text/javascript" src="js/code.js"></script>
 </head>
 <body>
 
   <div class="nav-button">
-    <button class="btn-white" id="loginbtn" onclick="login()">Sign In</button>
-    <button class="btn" id="registerbtn" onclick="register()">Sign Up</button>
+    <button class="btn-white" id="loginbtn" onclick="loginTab()">Sign In</button>
+    <button class="btn" id="registerbtn" onclick="registerTab()">Sign Up</button>
   </div>
 
   <div class="box-containner">
     <!-- Login Form -->
     <div class="login" id="login">
       <div class="top">
-        <span>Have an account? <a href="#" onclick="register()">Sign Up</a></span>
+        <span>Don't have an account?<a href="#" onclick="registerTab()">Sign Up</a></span>
         <h3>Login</h3>
       </div>
 
       <div class="form-box">
-        <input type="text" class="input-field" placeholder="Username or Email">
+        <input type="text" class="input-field" placeholder="Username or Email" id="loginName">
       </div>
       <div class="form-box">
-        <input type="password" class="input-field" placeholder="Password">
+        <input type="password" class="input-field" placeholder="Password" id="loginPassword">
       </div>
       <div class="form-box">
         <input type="submit" class="submit" value="Login" onclick="doLogin()">
       </div>
-
-      <div class="two-col">
-        <div class="one">
-          <input type="checkbox" id="login-check">
-          <label for="login-check">Remember me</label>
-        </div>
-        <div class="two">
-          <label><a href="#">Forgot password?</a></label>
-        </div>
-      </div>
+      <div id="loginResult"></div>
     </div>
 
     <!-- Register Form -->
@@ -49,85 +41,34 @@
 
     <div class="register" id="register">
       <div class="top">
-        <span>Don't have an account? <a href="#" onclick="login()">Login</a></span>
+        <span>Have an account?<a href="#" onclick="loginTab()">Login</a></span>
         <h3>Sign Up</h3>
-       
-      </div>
-
-      <div class="form-box">
-        <input type="text" class="input-field" placeholder="First Name">
       </div>
       <div class="form-box">
-        <input type="text" class="input-field" placeholder="Last Name">
+        <input type="text" class="input-field" placeholder="First Name" id="signupFirstName">
       </div>
       <div class="form-box">
-        <input type="text" class="input-field" placeholder="Email">
+        <input type="text" class="input-field" placeholder="Last Name" id="signupLastName">
       </div>
       <div class="form-box">
-        <input type="password" class="input-field" placeholder="Password">
+        <input type="text" class="input-field" placeholder="Email" id="signupLogin">
       </div>
       <div class="form-box">
-        <input type="submit" class="submit" value="Register" onclick="doRegister()">
-       
+        <input type="password" class="input-field" placeholder="Password" id="signupPassword">
       </div>
-
-      <div class="box">
-        <input type="checkbox" id="register-check">
-        <label for="register-check">Remember me</label>
+      <div class="form-box">
+        <input type="submit" class="submit" value="Register" onclick="doSignup()">
       </div>
+      <div id="signupResult"></div>
     </div>
   </div>
 
   <script>
-    var a = document.getElementById("loginbtn");
-    var b = document.getElementById("registerbtn");
-    var x = document.getElementById("login");
-    var y = document.getElementById("register");
-
-    function login() {
-      x.style.left = "4px";
-      y.style.right = "-520px";
-      a.classList.add("btn");
-      b.classList.remove("btn");
-    }
-
-    function register() {
-      x.style.left = "-510px";
-      y.style.right = "5px";
-      a.classList.remove("btn");
-      b.classList.add("btn");
-    }
-
-    function doLogin() {
-      const username = document.querySelector(".login input[placeholder='Username or Email']").value;
-      const password = document.querySelector(".login input[placeholder='Password']").value;
-
-      if (username && password) {
-        // Simulate login success
-        window.location.href = "dashboard.html";
-      } else {
-        alert("Please enter username and password.");
-      }      
-    }
-
- 
-  function doRegister() {
-    const firstName = document.querySelector(".register input[placeholder='First Name']").value;
-    const lastName = document.querySelector(".register input[placeholder='Last Name']").value;
-    const email = document.querySelector(".register input[placeholder='Email']").value;
-    const password = document.querySelector(".register input[placeholder='Password']").value;
-
-    if (firstName && lastName && email && password) {
-      // Simulate registration success
-      alert("Registration successful!");
-      window.location.href = "dashboard.html";
-    } else {
-      alert("Please fill in all fields.");
-    }
-  }
-</script>
-
-
+    // Initialize tab switching when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeTabSwitching();
+    });
+  </script>
 
 </body>
 </html>

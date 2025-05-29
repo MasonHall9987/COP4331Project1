@@ -1,4 +1,4 @@
-const urlBase = 'http://COP4331-5.com/LAMPAPI';
+const urlBase = 'http://cop4331project.online/LAMPAPI';
 const extension = 'php';
 
 let userId = 0;
@@ -46,7 +46,7 @@ function doLogin()
 
 				saveCookie();
 	
-				window.location.href = "color.html";
+				window.location.href = "dashboard.html";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -56,6 +56,56 @@ function doLogin()
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
 
+}
+
+function doSignup()
+{
+	let firstName = document.getElementById("signupFirstName").value;
+	let lastName = document.getElementById("signupLastName").value;
+	let login = document.getElementById("signupLogin").value;
+	let password = document.getElementById("signupPassword").value;
+
+	document.getElementById("signupResult").innerHTML = "";
+
+	let tmp = {
+		firstName: firstName,
+		lastName: lastName,
+		login: login,
+		password: password
+	};
+
+	let jsonPayload = JSON.stringify(tmp);
+
+	let url = urlBase + '/Signup.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				let jsonObject = JSON.parse(xhr.responseText);
+
+				if (jsonObject.error !== "")
+				{
+					document.getElementById("signupResult").innerHTML = jsonObject.error;
+					return;
+				}
+
+				document.getElementById("signupResult").innerHTML = "Signup successful! Please log in.";
+			}
+		};
+
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("signupResult").innerHTML = err.message;
+	}
 }
 
 function saveCookie()
@@ -182,4 +232,34 @@ function searchColor()
 		document.getElementById("colorSearchResult").innerHTML = err.message;
 	}
 	
+}
+
+// Tab switching functions for login/register forms
+function initializeTabSwitching() {
+	loginTab();
+}
+
+function loginTab() {
+	const loginBtn = document.getElementById("loginbtn");
+	const registerBtn = document.getElementById("registerbtn");
+	const loginForm = document.getElementById("login");
+	const registerForm = document.getElementById("register");
+
+	loginForm.className = loginForm.className.replace(/form-hide-left|form-show-left/g, '').trim() + ' form-show-left';
+	registerForm.className = registerForm.className.replace(/form-hide-right|form-show-right/g, '').trim() + ' form-hide-right';
+	
+	loginBtn.className = loginBtn.className.replace(/btn-active|btn-inactive|btn-white|btn/g, '').trim() + ' btn-active';
+	registerBtn.className = registerBtn.className.replace(/btn-active|btn-inactive|btn-white|btn/g, '').trim() + ' btn-inactive';
+}
+
+function registerTab() {
+	const loginBtn = document.getElementById("loginbtn");
+	const registerBtn = document.getElementById("registerbtn");
+	const loginForm = document.getElementById("login");
+	const registerForm = document.getElementById("register");
+
+	loginForm.className = loginForm.className.replace(/form-hide-left|form-show-left/g, '').trim() + ' form-hide-left';
+	registerForm.className = registerForm.className.replace(/form-hide-right|form-show-right/g, '').trim() + ' form-show-right';
+	registerBtn.className = registerBtn.className.replace(/btn-active|btn-inactive|btn-white|btn/g, '').trim() + ' btn-active';
+	loginBtn.className = loginBtn.className.replace(/btn-active|btn-inactive|btn-white|btn/g, '').trim() + ' btn-inactive';
 }

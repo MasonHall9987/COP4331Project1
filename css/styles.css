@@ -155,3 +155,31 @@ label a {
 label a:hover {
     text-decoration: underline;
 }
+
+.form-show-left {
+    left: 4px !important;
+}
+
+.form-hide-left {
+    left: -510px !important;
+}
+
+.form-show-right {
+    right: 5px !important;
+}
+
+.form-hide-right {
+    right: -520px !important;
+}
+
+.btn-active {
+    background-color: #555;
+    color: white;
+    border: 1px solid #ccc;
+}
+
+.btn-inactive {
+    background-color: white;
+    color: #333;
+    border: 1px solid #ccc;
+}
