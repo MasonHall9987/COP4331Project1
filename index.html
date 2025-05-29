@@ -45,10 +45,13 @@
     </div>
 
     <!-- Register Form -->
+    
+
     <div class="register" id="register">
       <div class="top">
         <span>Don't have an account? <a href="#" onclick="login()">Login</a></span>
         <h3>Sign Up</h3>
+       
       </div>
 
       <div class="form-box">
@@ -64,7 +67,8 @@
         <input type="password" class="input-field" placeholder="Password">
       </div>
       <div class="form-box">
-        <input type="submit" class="submit" value="Register">
+        <input type="submit" class="submit" value="Register" onclick="doRegister()">
+       
       </div>
 
       <div class="box">
@@ -103,9 +107,27 @@
         window.location.href = "dashboard.html";
       } else {
         alert("Please enter username and password.");
-      }
+      }      
     }
-  </script>
+
+ 
+  function doRegister() {
+    const firstName = document.querySelector(".register input[placeholder='First Name']").value;
+    const lastName = document.querySelector(".register input[placeholder='Last Name']").value;
+    const email = document.querySelector(".register input[placeholder='Email']").value;
+    const password = document.querySelector(".register input[placeholder='Password']").value;
+
+    if (firstName && lastName && email && password) {
+      // Simulate registration success
+      alert("Registration successful!");
+      window.location.href = "dashboard.html";
+    } else {
+      alert("Please fill in all fields.");
+    }
+  }
+</script>
+
+
 
 </body>
 </html>
