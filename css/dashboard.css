@@ -127,3 +127,15 @@ body {
 .hidden {
   display: none;
 }
+/* edit and delete button */
+#edit-delete-buttons {
+  display: none;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+#edit-delete-buttons .submit:disabled {
+  background-color: #bbb;
+  cursor: not-allowed;
+}
