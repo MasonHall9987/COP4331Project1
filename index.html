@@ -6,24 +6,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>COP4331 | Project 1</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/navbar.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <script type="text/javascript" src="js/code.js"></script>
 </head>
 <body>
 
-  <div class="nav-button">
-    <button class="btn-white" id="loginbtn" onclick="loginTab()">Sign In</button>
-    <button class="btn" id="registerbtn" onclick="registerTab()">Sign Up</button>
+  <!-- Navigation bar -->
+  <div class="wrapper"> 
+    <img src="images/logo.png" alt="Sapling Circle Logo" class="logo">   
+    <div class="motto">Where connections take root</div>
+    <ul>
+        <li><a href="#" class="link" onclick="loginTab()">Login</a></li>
+        <li><a href="#" class="link" onclick="registerTab()">Sign up</a></li>
+      </ul>
+
   </div>
 
   <div class="box-containner">
     <!-- Login Form -->
     <div class="login" id="login">
+
+      <!-- Greet returning users -->
+      <div class="greeting">
+        <h2>Welcome back!</h2>
+      </div>
+
+      <!-- Login header -->
       <div class="top">
-        <span>Don't have an account?<a href="#" onclick="registerTab()">Sign Up</a></span>
         <h3>Login</h3>
       </div>
 
+      <!-- Login input fields -->
       <div class="form-box">
         <input type="text" class="input-field" placeholder="Username or Email" id="loginName">
       </div>
@@ -34,18 +48,28 @@
         <input type="submit" class="submit" value="Login" onclick="doLogin()">
       </div>
       <div id="loginResult"></div>
+
+      <!-- Offers option to sign up instead -->
+      <div class="option-prompt">
+        <span>Don't have an account?<a href="#" onclick="registerTab()"> Sign Up</a></span>
+      </div>
+
     </div>
 
     <!-- Register Form -->
-    
-
     <div class="register" id="register">
-      <div class="top">
-        <span>Have an account?<a href="#" onclick="loginTab()">Login</a></span>
-        <h3>Sign Up</h3>
-       
+
+      <!-- Greet new users-->
+      <div class="greeting">
+        <h2>Welcome!</h2>
       </div>
 
+      <!-- Sign up header -->
+      <div class="top">
+        <h3>Sign up</h3>
+      </div>
+
+      <!-- Sign up input fields -->
       <div class="form-box">
         <input type="text" class="input-field" placeholder="First Name" id="signupFirstName">
       </div>
@@ -53,7 +77,7 @@
         <input type="text" class="input-field" placeholder="Last Name" id="signupLastName">
       </div>
       <div class="form-box">
-        <input type="text" class="input-field" placeholder="login" id="signupLogin">
+        <input type="text" class="input-field" placeholder="Username" id="signupLogin">
       </div>
       <div class="form-box">
         <input type="password" class="input-field" placeholder="Password" id="signupPassword">
@@ -62,6 +86,12 @@
         <input type="submit" class="submit" value="Register" onclick="doSignup()">
       </div>
       <div id="signupResult"></div>
+
+      <!-- Offers option to sign in instead -->
+      <div class="option-prompt">
+        <span>Have an account?<a href="#" onclick="loginTab()"> Sign in</a></span>
+      </div>
+
     </div>
   </div>
 
