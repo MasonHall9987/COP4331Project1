@@ -263,3 +263,60 @@ function registerTab() {
 	registerBtn.className = registerBtn.className.replace(/btn-active|btn-inactive|btn-white|btn/g, '').trim() + ' btn-active';
 	loginBtn.className = loginBtn.className.replace(/btn-active|btn-inactive|btn-white|btn/g, '').trim() + ' btn-inactive';
 }
+
+/* function for dashboard.html */
+    function logout() {
+      alert("Logging out...");
+      window.location.href = "index.html";
+    }
+
+    function addContact() {
+      const firstName = document.getElementById("contactFirstName").value;
+      const lastName = document.getElementById("contactLastName").value;
+      const phone = document.getElementById("contactPhone").value;
+      const email = document.getElementById("contactEmail").value;
+
+      if (!firstName || !lastName || !phone || !email) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      alert(`Contact added: ${firstName} ${lastName}`);
+    }
+
+    function searchContact() {
+      const query = document.getElementById("searchInput").value.trim();
+
+      if (!query) {
+        alert("Please enter a search term.");
+        return;
+      }
+
+      const resultsBox = document.getElementById("searchResults");
+      resultsBox.innerHTML = `<p>Searching for: <strong>${query}</strong></p>`;
+    }
+
+    function showAddContact() {
+      hideAllSections();
+      document.getElementById("add-contact").classList.remove("hidden");
+      document.getElementById("add-contact").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function showSearchContact() {
+      hideAllSections();
+      document.getElementById("search-contact").classList.remove("hidden");
+      document.getElementById("search-contact").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function showAbout() {
+      hideAllSections();
+      document.getElementById("about").classList.remove("hidden");
+      document.getElementById("about").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function hideAllSections() {
+      document.getElementById("add-contact").classList.add("hidden");
+      document.getElementById("search-contact").classList.add("hidden");
+      document.getElementById("about").classList.add("hidden");
+    }
+ 
