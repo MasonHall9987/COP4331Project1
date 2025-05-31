@@ -1,0 +1,43 @@
+name: Deploy LAMP App (Single Server)
+
+on:
+  push:
+    branches:
+      - main
+      - beta
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up SSH key
+      run: |
+        echo "${{ secrets.SSH_KEY }}" > key.pem
+        chmod 600 key.pem
+
+    - name: Determine target directory
+      id: target
+      run: |
+        if [[ "${GITHUB_REF##*/}" == "main" ]]; then
+          echo "dir=/var/www/html" >> $GITHUB_OUTPUT
+        elif [[ "${GITHUB_REF##*/}" == "beta" ]]; then
+          echo "dir=/var/www/beta" >> $GITHUB_OUTPUT
+        else
+          echo "Unsupported branch"
+          exit 1
+        fi
+
+    - name: Rsync to server
+      run: |
+        rsync -avz -e "ssh -i key.pem -o StrictHostKeyChecking=no" ./public_html/ ${{ secrets.USER }}@${{ secrets.HOST }}:${{ steps.target.outputs.dir }}/
+
+    - name: Optional post-deploy
+      run: |
+        ssh -i key.pem -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.HOST }} "bash ${{ steps.target.outputs.dir }}/scripts/post-deploy.sh || true"
+
+    - name: Clean up
+      run: rm -f key.pem
