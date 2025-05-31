@@ -33,11 +33,7 @@ jobs:
 
     - name: Rsync to server
       run: |
-        rsync -avz -e "ssh -i key.pem -o StrictHostKeyChecking=no" ./public_html/ ${{ secrets.USER }}@${{ secrets.HOST }}:${{ steps.target.outputs.dir }}/
-
-    - name: Optional post-deploy
-      run: |
-        ssh -i key.pem -o StrictHostKeyChecking=no ${{ secrets.USER }}@${{ secrets.HOST }} "bash ${{ steps.target.outputs.dir }}/scripts/post-deploy.sh || true"
+        rsync -avz -e "ssh -i key.pem -o StrictHostKeyChecking=no" ./public_html/ deploy@cop4331project.online:${{ steps.target.outputs.dir }}/
 
     - name: Clean up
       run: rm -f key.pem
