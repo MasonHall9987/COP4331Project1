@@ -3,7 +3,7 @@ name: Deploy LAMP App (Single Server)
 on:
   push:
     branches:
-      - main
+      - master
       - beta
 
 jobs:
@@ -22,7 +22,7 @@ jobs:
     - name: Determine target directory
       id: target
       run: |
-        if [[ "${GITHUB_REF##*/}" == "main" ]]; then
+        if [[ "${GITHUB_REF##*/}" == "master" ]]; then
           echo "dir=/var/www/html" >> $GITHUB_OUTPUT
         elif [[ "${GITHUB_REF##*/}" == "beta" ]]; then
           echo "dir=/var/www/beta" >> $GITHUB_OUTPUT
