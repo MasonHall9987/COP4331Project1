@@ -208,3 +208,28 @@ label a:hover {
 .option-prompt a:hover {
     text-decoration: underline;
 }
+
+/*this for small device*/
+@media (max-width: 600px) {
+  .box-containner {
+    width: 90%;
+    height: auto;
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  .input-field, .submit {
+    font-size: 13px;
+  }
+
+  .nav-button {
+    flex-direction: column;
+    top: 10px;
+    right: 10px;
+    gap: 5px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+}
