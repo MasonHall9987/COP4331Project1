@@ -15,7 +15,7 @@
   <!-- Navigation bar -->
   <div class="wrapper"> 
     <img src="images/logo.png" alt="Sapling Circle Logo" class="logo">   
-    <div class="motto">Where connections take root</div>
+    <div class="motto">Where connections take root 🪴 🐝</div>
     <ul>
         <li><a href="#" class="link" onclick="loginTab()">Login</a></li>
         <li><a href="#" class="link" onclick="registerTab()">Sign up</a></li>
@@ -39,19 +39,19 @@
 
       <!-- Login input fields -->
       <div class="form-box">
-        <input type="text" class="input-field" placeholder="Username or Email" id="loginName">
+        <input type="text" class="input-field" placeholder="Username or Email *" id="loginName">
       </div>
       <div class="form-box">
-        <input type="password" class="input-field" placeholder="Password" id="loginPassword">
+        <input type="password" class="input-field" placeholder="Password *" id="loginPassword">
       </div>
       <div class="form-box">
         <input type="submit" class="submit" value="Login" onclick="doLogin()">
       </div>
-      <div id="loginResult"></div>
+      <div id="loginResult" class="alert"></div>
 
       <!-- Offers option to sign up instead -->
       <div class="option-prompt">
-        <span>Don't have an account?<a href="#" onclick="registerTab()"> Sign Up</a></span>
+        <span>Don't have an account?<a href="#" onclick="registerTab()">Sign Up</a></span>
       </div>
 
     </div>
@@ -71,25 +71,25 @@
 
       <!-- Sign up input fields -->
       <div class="form-box">
-        <input type="text" class="input-field" placeholder="First Name" id="signupFirstName">
+        <input type="text" class="input-field" placeholder="First Name *" id="signupFirstName">
       </div>
       <div class="form-box">
-        <input type="text" class="input-field" placeholder="Last Name" id="signupLastName">
+        <input type="text" class="input-field" placeholder="Last Name *" id="signupLastName">
       </div>
       <div class="form-box">
-        <input type="text" class="input-field" placeholder="Username" id="signupLogin">
+        <input type="text" class="input-field" placeholder="Username *" id="signupLogin">
       </div>
       <div class="form-box">
-        <input type="password" class="input-field" placeholder="Password" id="signupPassword">
+        <input type="password" class="input-field" placeholder="Password *" id="signupPassword">
       </div>
       <div class="form-box">
-        <input type="submit" class="submit" value="Register" onclick="doSignup()">
+        <input type="submit" class="submit" value="Sign up" onclick="doSignup()">
       </div>
       <div id="signupResult"></div>
 
       <!-- Offers option to sign in instead -->
       <div class="option-prompt">
-        <span>Have an account?<a href="#" onclick="loginTab()"> Sign in</a></span>
+        <span>Have an account?<a href="#" onclick="loginTab()">Sign in</a></span>
       </div>
 
     </div>

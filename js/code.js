@@ -65,6 +65,16 @@ function doSignup()
 	let login = document.getElementById("signupLogin").value;
 	let password = document.getElementById("signupPassword").value;
 
+	// Ensure fields are nonempty
+	if (firstName.trim() === "" || lastName.trim() === "" || login.trim() === "" ||
+		password.trim() === "") 
+	{
+		const res = document.getElementById("signupResult");
+		res.className = "alert";
+		res.innerHTML = "Please fill out all fields.";
+		return;
+	}
+
 	document.getElementById("signupResult").innerHTML = "";
 
 	let tmp = {
@@ -96,7 +106,9 @@ function doSignup()
 					return;
 				}
 
-				document.getElementById("signupResult").innerHTML = "Signup successful! Please log in.";
+				const res = document.getElementById("signUpResult");
+				res.className = "alert success";
+				result.innerHTML = "Sign up successful! Please log in.";
 			}
 		};
 
