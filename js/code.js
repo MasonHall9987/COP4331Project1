@@ -60,6 +60,9 @@ function doLogin()
 
 function doSignup()
 {
+	const res = document.getElementById("signupResult");
+	res.className = "alert";
+
 	let firstName = document.getElementById("signupFirstName").value;
 	let lastName = document.getElementById("signupLastName").value;
 	let login = document.getElementById("signupLogin").value;
@@ -69,13 +72,11 @@ function doSignup()
 	if (firstName.trim() === "" || lastName.trim() === "" || login.trim() === "" ||
 		password.trim() === "") 
 	{
-		const res = document.getElementById("signupResult");
-		res.className = "alert";
 		res.innerHTML = "Please fill out all fields.";
 		return;
 	}
 
-	document.getElementById("signupResult").innerHTML = "";
+	//document.getElementById("signupResult").innerHTML = "";
 
 	let tmp = {
 		firstName: firstName,
@@ -102,21 +103,20 @@ function doSignup()
 
 				if (jsonObject.error !== "")
 				{
-					document.getElementById("signupResult").innerHTML = jsonObject.error;
+					res.innerHTML = jsonObject.error;
 					return;
 				}
 
-				const res = document.getElementById("signUpResult");
 				res.className = "alert success";
-				result.innerHTML = "Sign up successful! Please log in.";
+				res.innerHTML = "Sign up successful! Please log in.";
 			}
 		};
 
 		xhr.send(jsonPayload);
 	}
 	catch(err)
-	{
-		document.getElementById("signupResult").innerHTML = err.message;
+	{	
+		res.innerHTML = err.message;
 	}
 }
 
@@ -252,6 +252,10 @@ function initializeTabSwitching() {
 }
 
 function loginTab() {
+	setTimeout(() => {
+                document.getElementById("signupResult").innerHTML = "";
+            }, 500);	
+
 	const loginBtn = document.getElementById("loginbtn");
 	const registerBtn = document.getElementById("registerbtn");
 	const loginForm = document.getElementById("login");
@@ -262,9 +266,15 @@ function loginTab() {
 	
 	loginBtn.className = loginBtn.className.replace(/btn-active|btn-inactive|btn-white|btn/g, '').trim() + ' btn-active';
 	registerBtn.className = registerBtn.className.replace(/btn-active|btn-inactive|btn-white|btn/g, '').trim() + ' btn-inactive';
+
 }
 
 function registerTab() {
+ 	// Remove login alert if user switches to sign up tab
+	setTimeout(() => {
+                document.getElementById("loginResult").innerHTML = "";
+            }, 500);
+		
 	const loginBtn = document.getElementById("loginbtn");
 	const registerBtn = document.getElementById("registerbtn");
 	const loginForm = document.getElementById("login");
@@ -274,4 +284,5 @@ function registerTab() {
 	registerForm.className = registerForm.className.replace(/form-hide-right|form-show-right/g, '').trim() + ' form-show-right';
 	registerBtn.className = registerBtn.className.replace(/btn-active|btn-inactive|btn-white|btn/g, '').trim() + ' btn-active';
 	loginBtn.className = loginBtn.className.replace(/btn-active|btn-inactive|btn-white|btn/g, '').trim() + ' btn-inactive';
+
 }
