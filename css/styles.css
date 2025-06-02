@@ -58,7 +58,7 @@ body{
     justify-content: flex-start;
     align-items: flex-start;
     width: 512px;
-    height: 550px;
+    height: 600px;
     background-color: rgba(0, 0, 0, 0.45);
     border-radius: 12px;
     padding: 20px;
@@ -137,6 +137,9 @@ h3{
     margin-top: 20px;
 }
 
+.submit:hover {
+    font-weight: 700;
+}
 
 .two-col {
     display: flex;
@@ -200,11 +203,24 @@ label a:hover {
 
 .option-prompt a {
     font-weight: 500;
-    color: white;
+    color: pink;
     margin-left: 5px;
-    text-decoration: none;
+    text-decoration: underline;
+    transition: all 0.2s ease;
 }
 
 .option-prompt a:hover {
-    text-decoration: underline;
+    box-shadow: 0 0 0 1px pink;
+    border-radius: 4px;
+}
+
+.alert {
+    font-weight: bold;
+    font-size: 20px;
+    color: red;
+    margin-top: 30px;
+}
+
+.alert.success {
+    color: green;
 }
