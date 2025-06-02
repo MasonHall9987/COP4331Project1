@@ -19,6 +19,11 @@ jobs:
         echo "${{ secrets.SSH_KEY }}" > key.pem
         chmod 600 key.pem
 
+    - name: Debug key file (TEMP)
+      run: |
+        file key.pem
+        head -n 5 key.pem
+
     - name: Determine target directory
       id: target
       run: |
