@@ -16,7 +16,9 @@ jobs:
 
     - name: Set up SSH key
       run: |
-        echo "${{ secrets.SSH_KEY }}" > key.pem
+        echo "-----BEGIN OPENSSH PRIVATE KEY-----" > key.pem
+        echo "${{ secrets.SSH_KEY }}" >> key.pem
+        echo "-----END OPENSSH PRIVATE KEY-----" >> key.pem
         chmod 600 key.pem
 
     - name: Debug key file (TEMP)
