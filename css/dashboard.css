@@ -79,8 +79,8 @@
 
 .hidden {
   display: none;
-<<<<<<< HEAD
 }
+
 /* edit and delete button */
 #edit-delete-buttons {
   display: none;
@@ -93,6 +93,3 @@
   background-color: #bbb;
   cursor: not-allowed;
 }
-=======
-}
->>>>>>> JCM
