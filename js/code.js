@@ -246,14 +246,14 @@ function searchColor()
 	
 }
 
-function searchContact()
+function searchContact(searchTerm = "")
 {
-	let searchTerm = document.getElementById("searchInput").value;
-	let resultsDiv = document.getElementById("searchResults");
-	resultsDiv.innerHTML = "";
+	document.getElementById("searchResults").innerHTML = "";
 	
+	let contactList = "";
+
 	let tmp = {search:searchTerm, userId:userId};
-	let jsonPayload = JSON.stringify(tmp);
+	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/SearchContact.' + extension;
 	
@@ -266,40 +266,35 @@ function searchContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				let jsonObject = JSON.parse(xhr.responseText);
+				document.getElementById("searchResults").innerHTML = "Contact(s) has been retrieved";
+				let jsonObject = JSON.parse( xhr.responseText );
 				
-				if (jsonObject.error !== "")
+				for( let i=0; i<jsonObject.results.length; i++ )
 				{
-					resultsDiv.innerHTML = "Error: " + jsonObject.error;
-					return;
+					contactList += jsonObject.results[i].FirstName + " " + jsonObject.results[i].LastName;
+					contactList += "<br />Phone: " + jsonObject.results[i].Phone;
+					contactList += "<br />Email: " + jsonObject.results[i].Email;
+					if( i < jsonObject.results.length - 1 )
+					{
+						contactList += "<br /><br />";
+					}
 				}
-
-				if (jsonObject.results.length === 0) {
-					resultsDiv.innerHTML = "No contacts found.";
-					return;
-				}
-
-				let resultsHTML = "<div class='contact-results'>";
-				for (let i = 0; i < jsonObject.results.length; i++) {
-					let contact = jsonObject.results[i];
-					resultsHTML += `
-						<div class='contact-card'>
-							<h4>${contact.FirstName} ${contact.LastName}</h4>
-							<p>Phone: ${contact.Phone}</p>
-							<p>Email: ${contact.Email}</p>
-						</div>
-					`;
-				}
-				resultsHTML += "</div>";
-				resultsDiv.innerHTML = resultsHTML;
+				
+				document.getElementById("searchResults").innerHTML = contactList;
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		resultsDiv.innerHTML = "Error: " + err.message;
+		document.getElementById("searchResults").innerHTML = err.message;
 	}
+}
+
+function handleSearch()
+{
+	let searchTerm = document.getElementById("searchInput").value;
+	searchContact(searchTerm);
 }
 
 // Tab switching functions for login/register forms

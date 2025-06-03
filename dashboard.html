@@ -6,6 +6,7 @@
   <title>COP4331 | Dashboard</title>
   <link rel="stylesheet" href="css/dashboard.css" />
   <link rel="stylesheet" href="css/navbar.css">
+  <script type="text/javascript" src="js/code.js"></script>
   <style>
     .contact-results {
       margin-top: 20px;
@@ -66,7 +67,7 @@
       <input type="text" class="input-field" placeholder="Enter name, email or phone" id="searchInput" />
     </div>
     <div class="form-box">
-      <input type="submit" class="submit" value="Search" onclick="searchContact()" />
+      <input type="submit" class="submit" value="Search" onclick="handleSearch()" />
     </div>
     <div class="form-box" id="searchResults"></div>
   </div>
@@ -112,18 +113,6 @@
       alert(`Contact added: ${firstName} ${lastName}`);
     }
 
-    function searchContact() {
-      const query = document.getElementById("searchInput").value.trim();
-
-      if (!query) {
-        alert("Please enter a search term.");
-        return;
-      }
-
-      const resultsBox = document.getElementById("searchResults");
-      resultsBox.innerHTML = `<p>Searching for: <strong>${query}</strong></p>`;
-    }
-
     function showAddContact() {
       hideAllSections();
       document.getElementById("add-contact").classList.remove("hidden");
@@ -134,6 +123,8 @@
       hideAllSections();
       document.getElementById("search-contact").classList.remove("hidden");
       document.getElementById("search-contact").scrollIntoView({ behavior: "smooth" });
+      // Run initial search when showing the search section
+      searchContact();
     }
 
     function showAbout() {
