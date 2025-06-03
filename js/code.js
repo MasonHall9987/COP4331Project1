@@ -246,6 +246,57 @@ function searchColor()
 	
 }
 
+function searchContact(searchTerm = "")
+{
+	document.getElementById("searchResults").innerHTML = "";
+	
+	let contactList = "";
+
+	let tmp = {search:searchTerm, userId:userId};
+	let jsonPayload = JSON.stringify( tmp );
+
+	let url = urlBase + '/SearchContact.' + extension;
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("searchResults").innerHTML = "Contact(s) has been retrieved";
+				let jsonObject = JSON.parse( xhr.responseText );
+				
+				for( let i=0; i<jsonObject.results.length; i++ )
+				{
+					contactList += jsonObject.results[i].FirstName + " " + jsonObject.results[i].LastName;
+					contactList += "<br />Phone: " + jsonObject.results[i].Phone;
+					contactList += "<br />Email: " + jsonObject.results[i].Email;
+					if( i < jsonObject.results.length - 1 )
+					{
+						contactList += "<br /><br />";
+					}
+				}
+				
+				document.getElementById("searchResults").innerHTML = contactList;
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("searchResults").innerHTML = err.message;
+	}
+}
+
+function handleSearch()
+{
+	let searchTerm = document.getElementById("searchInput").value;
+	searchContact(searchTerm);
+}
+
 // Tab switching functions for login/register forms
 function initializeTabSwitching() {
 	loginTab();
@@ -284,61 +335,5 @@ function registerTab() {
 	registerForm.className = registerForm.className.replace(/form-hide-right|form-show-right/g, '').trim() + ' form-show-right';
 	registerBtn.className = registerBtn.className.replace(/btn-active|btn-inactive|btn-white|btn/g, '').trim() + ' btn-active';
 	loginBtn.className = loginBtn.className.replace(/btn-active|btn-inactive|btn-white|btn/g, '').trim() + ' btn-inactive';
-}
 
-/* function for dashboard.html */
-    function logout() {
-      alert("Logging out...");
-      window.location.href = "index.html";
-    }
-
-    function addContact() {
-      const firstName = document.getElementById("contactFirstName").value;
-      const lastName = document.getElementById("contactLastName").value;
-      const phone = document.getElementById("contactPhone").value;
-      const email = document.getElementById("contactEmail").value;
-
-      if (!firstName || !lastName || !phone || !email) {
-        alert("Please fill in all fields.");
-        return;
-      }
-
-      alert(`Contact added: ${firstName} ${lastName}`);
-    }
-
-    function searchContact() {
-      const query = document.getElementById("searchInput").value.trim();
-
-      if (!query) {
-        alert("Please enter a search term.");
-        return;
-      }
-
-      const resultsBox = document.getElementById("searchResults");
-      resultsBox.innerHTML = `<p>Searching for: <strong>${query}</strong></p>`;
-    }
-
-    function showAddContact() {
-      hideAllSections();
-      document.getElementById("add-contact").classList.remove("hidden");
-      document.getElementById("add-contact").scrollIntoView({ behavior: "smooth" });
-    }
-
-    function showSearchContact() {
-      hideAllSections();
-      document.getElementById("search-contact").classList.remove("hidden");
-      document.getElementById("search-contact").scrollIntoView({ behavior: "smooth" });
-    }
-
-    function showAbout() {
-      hideAllSections();
-      document.getElementById("about").classList.remove("hidden");
-      document.getElementById("about").scrollIntoView({ behavior: "smooth" });
-    }
-
-    function hideAllSections() {
-      document.getElementById("add-contact").classList.add("hidden");
-      document.getElementById("search-contact").classList.add("hidden");
-      document.getElementById("about").classList.add("hidden");
-    } 
 }
