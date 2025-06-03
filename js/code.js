@@ -246,6 +246,62 @@ function searchColor()
 	
 }
 
+function searchContact()
+{
+	let searchTerm = document.getElementById("searchInput").value;
+	let resultsDiv = document.getElementById("searchResults");
+	resultsDiv.innerHTML = "";
+	
+	let tmp = {search:searchTerm, userId:userId};
+	let jsonPayload = JSON.stringify(tmp);
+
+	let url = urlBase + '/SearchContact.' + extension;
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				let jsonObject = JSON.parse(xhr.responseText);
+				
+				if (jsonObject.error !== "")
+				{
+					resultsDiv.innerHTML = "Error: " + jsonObject.error;
+					return;
+				}
+
+				if (jsonObject.results.length === 0) {
+					resultsDiv.innerHTML = "No contacts found.";
+					return;
+				}
+
+				let resultsHTML = "<div class='contact-results'>";
+				for (let i = 0; i < jsonObject.results.length; i++) {
+					let contact = jsonObject.results[i];
+					resultsHTML += `
+						<div class='contact-card'>
+							<h4>${contact.FirstName} ${contact.LastName}</h4>
+							<p>Phone: ${contact.Phone}</p>
+							<p>Email: ${contact.Email}</p>
+						</div>
+					`;
+				}
+				resultsHTML += "</div>";
+				resultsDiv.innerHTML = resultsHTML;
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		resultsDiv.innerHTML = "Error: " + err.message;
+	}
+}
+
 // Tab switching functions for login/register forms
 function initializeTabSwitching() {
 	loginTab();
