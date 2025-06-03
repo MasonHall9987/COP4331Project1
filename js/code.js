@@ -284,7 +284,6 @@ function registerTab() {
 	registerForm.className = registerForm.className.replace(/form-hide-right|form-show-right/g, '').trim() + ' form-show-right';
 	registerBtn.className = registerBtn.className.replace(/btn-active|btn-inactive|btn-white|btn/g, '').trim() + ' btn-active';
 	loginBtn.className = loginBtn.className.replace(/btn-active|btn-inactive|btn-white|btn/g, '').trim() + ' btn-inactive';
-<<<<<<< HEAD
 }
 
 /* function for dashboard.html */
@@ -341,9 +340,5 @@ function registerTab() {
       document.getElementById("add-contact").classList.add("hidden");
       document.getElementById("search-contact").classList.add("hidden");
       document.getElementById("about").classList.add("hidden");
-    }
- 
-=======
-
+    } 
 }
->>>>>>> JCM
