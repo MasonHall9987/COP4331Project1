@@ -18,7 +18,7 @@ function doLogin()
 
 	if (login.trim() === "" || password.trim() === "") 
 	{
-		res.innerHTML("Please fill out all fields.");
+		res.innerHTML = "Please fill out all fields.";
 		return;
 	}
 
