@@ -1,10 +1,3 @@
-const urlBase = 'http://cop4331project.online/LAMPAPI';
-const extension = 'php';
-
-let userId = 0;
-let firstName = "";
-let lastName = "";
-
 function addContact() {
     // // Load userId from cookie
     // readCookie();
