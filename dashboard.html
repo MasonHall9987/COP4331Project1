@@ -33,7 +33,9 @@
 
   <!-- Navigation bar -->
   <div class="wrapper">
-    <img src="images/logo.png" alt="Sapling Circle Logo" class="logo">      
+    <img src="images/logo.png" alt="Sapling Circle Logo" class="logo">     
+      <div class="motto" id="welcome-msg">Hello, user!</div>
+ 
     <ul>
       <li><a href="#" class="link" onclick="showAddContact()">Add Contact</a></li>
       <li><a href="#" class="link" onclick="showSearchContact()">Search Contact</a></li>
@@ -45,19 +47,19 @@
   <div class="box-container" id="add-contact">
     <h3>Add Contact</h3>
     <div class="form-box">
-      <input type="text" class="input-field" placeholder="First Name" id="contactFirstName" />
+      <input type="text" class="input-field" placeholder="First Name *" id="contactFirstName" />
     </div>
     <div class="form-box">
-      <input type="text" class="input-field" placeholder="Last Name" id="contactLastName" />
+      <input type="text" class="input-field" placeholder="Last Name *" id="contactLastName" />
     </div>
     <div class="form-box">
-      <input type="text" class="input-field" placeholder="Phone Number" id="contactPhone" />
+      <input type="text" class="input-field" placeholder="Phone Number *" id="contactPhone" />
     </div>
     <div class="form-box">
-      <input type="text" class="input-field" placeholder="Email" id="contactEmail" />
+      <input type="text" class="input-field" placeholder="Email *" id="contactEmail" />
     </div>
     <div class="form-box">
-      <input type="submit" class="submit" value="Add Contact" onclick="addContact()" />
+      <input type="submit" class="submit" value="Add Contact *" onclick="addContact()" />
     </div>
   </div>
 
@@ -79,7 +81,7 @@
   <div class="team-grid">
     <div class="team-card">
       <div class="avatar">MH</div>
-      <h3>Hall, Madson</h3>
+      <h3>Hall, Mason</h3>
       <p>Database &amp; API</p>
     </div>
     <div class="team-card">
@@ -105,12 +107,31 @@
     <button class="btn" onclick="logout()">Logout</button>
   </div>
 
+  <!-- Uncomment below code when pushing -->
+
   <script src="js/code.js"></script>
   <script>
     // Call readCookie when the page loads to ensure we have the userId
     window.onload = function() {
       readCookie();
+
+
+      validateOnInput("contactFirstName", "text");
+      validateOnInput("contactLastName", "text");
+      validateOnInput("contactPhone", "phoneNum");
+      validateOnInput("contactEmail", "email");
+    
+      // Display greeting in nav bar
+      const greetElement = document.getElementById("welcome-msg");
+      if (greetElement && typeof firstName !== "undefined") {
+        greetElement.textContent = "Hello, ${firstName}!";
+      }
     };
+
+    function validateOnInput(id, type) {
+      const element = document.getElementById(id);
+      element.addEventListener("input", () => validateInputField(element, type));
+    } 
 
     function logout() {
       doLogout();

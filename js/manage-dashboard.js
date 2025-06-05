@@ -2,17 +2,29 @@ function addContact() {
     // // Load userId from cookie
     // readCookie();
 
+    const isValid =
+        validateInputField(document.getElementById("contactFirstName"), "text") &&
+        validateInputField(document.getElementById("contactLastName"), "text") &&
+        validateInputField(document.getElementById("contactPhone"), "phoneNum") &&
+        validateInputField(document.getElementById("contactEmail"), "email");
+
+    if (!isValid) {
+        alert("Unable to add new contact. Please correct invalid input.");
+        return;
+    }
+
     // Fetch user's input
     const firstName = document.getElementById("contactFirstName").value;
     const lastName = document.getElementById("contactLastName").value;
     const phone = document.getElementById("contactPhone").value;
     const email = document.getElementById("contactEmail").value;
 
-    // Reject empty fields
-    if (!firstName || !lastName || !phone || !email) {
-        alert("Please fill in all fields.");
-        return;
-    }
+
+    // // Reject empty fields
+    // if (!firstName || !lastName || !phone || !email) {
+    //     alert("Please fill in all fields.");
+    //     return;
+    // }
 
     // Prepare API call
     let tmp = {
@@ -59,6 +71,40 @@ function addContact() {
     catch (error) {
         alert("Failed request: " + error.message);
     }
+}
+
+function validateInput(element, type) {
+
+    // Store user's input
+    const content = element.value.trim();
+
+    // Assume invalid input
+    let validity = false;
+
+
+
+    if (type === "text") {
+        validity = content.length >= 2;
+    }
+    else if (type === "phoneNum") {
+        // Remove non-numeric portion of phone numbers
+        const digits = content.replace(/\D/g, "");
+        validity = digits.length === 10;
+    }
+    else if (type === "email") {
+        // Ensure emails follow {text}@{text}.{text}
+        const validPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        validity = validPattern.test(content);
+    }
+
+    element.classList.remove("input-valid", "input-invalid");
+
+    if (content !== "") {
+        // Assign the element a class based on its validity
+        inputElement.classList.add(isValid ? "input-valid" : "input-invalid");
+    }
+
+    return validity;
 }
 
 function showAddContact() {

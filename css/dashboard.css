@@ -108,7 +108,8 @@ html, body {
 /* ——— Logout Button Wrapper ——— */
 .logout-button {
   text-align: center;
-  margin: 30px auto;
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 
 /* ——— Hidden Utility ——— */
@@ -245,8 +246,6 @@ html, body {
   line-height: 1.4;
 }
 
-
-
 /* Responsive: adjust gap on small screens */
 @media (max-width: 600px) {
   .wrapper {
@@ -270,7 +269,8 @@ html, body {
   .about-container {
     width: 90%;
     padding: 20px;
-    margin: 30px auto;
+    margin: 30px auto 10px auto;
+    /* margin: 30px auto; */
   }
 
   .box-container h3,
@@ -290,4 +290,14 @@ html, body {
   .team-card {
     max-width: 100%;
   }
+}
+
+.input-valid {
+  border: 2px solid green;
+  /* background-color: #e6ffe6; */
+}
+
+.input-invalid {
+  border: 2px solid red;
+  /* background-color: #ffe6e6; */
 }
