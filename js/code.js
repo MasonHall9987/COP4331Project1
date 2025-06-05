@@ -7,15 +7,25 @@ let lastName = "";
 
 function doLogin()
 {
-	userId = 0;
+	userId = -1;
 	firstName = "";
 	lastName = "";
+
+	const res = document.getElementById("loginResult");
 	
 	let login = document.getElementById("loginName").value;
 	let password = document.getElementById("loginPassword").value;
+
+	if (login.trim() === "" || password.trim() === "") 
+	{
+		res.innerHTML = "Please fill out all fields.";
+		return;
+	}
+
+
 //	var hash = md5( password );
 	
-	document.getElementById("loginResult").innerHTML = "";
+	res.innerHTML = "";
 
 	let tmp = {login:login,password:password};
 //	var tmp = {login:login,password:hash};
@@ -37,7 +47,7 @@ function doLogin()
 		
 				if( userId < 1 )
 				{		
-					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+					res.innerHTML = "User/Password combination incorrect";
 					return;
 				}
 		
@@ -53,7 +63,7 @@ function doLogin()
 	}
 	catch(err)
 	{
-		document.getElementById("loginResult").innerHTML = err.message;
+		res.innerHTML = err.message;
 	}
 
 }
