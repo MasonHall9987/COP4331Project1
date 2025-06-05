@@ -1,7 +1,25 @@
-function addContact() {
-    // // Load userId from cookie
-    // readCookie();
+// Add event listeners to each AddContact field
+window.addEventListener("load", function () {
+  document.getElementById("contactFirstName").addEventListener("input", function () {
+    validateInput(this, "text");
+  });
 
+  document.getElementById("contactLastName").addEventListener("input", function () {
+    validateInput(this, "text");
+  });
+
+  document.getElementById("contactPhone").addEventListener("input", function () {
+    validateInput(this, "phoneNum");
+  });
+
+  document.getElementById("contactEmail").addEventListener("input", function () {
+    validateInput(this, "email");
+  });
+});
+
+
+function addContact() { 
+    // Ensure all fields are valid
     const isValid =
         validateInput(document.getElementById("contactFirstName"), "text") &&
         validateInput(document.getElementById("contactLastName"), "text") &&
@@ -18,13 +36,6 @@ function addContact() {
     const lastName = document.getElementById("contactLastName").value;
     const phone = document.getElementById("contactPhone").value;
     const email = document.getElementById("contactEmail").value;
-
-
-    // // Reject empty fields
-    // if (!firstName || !lastName || !phone || !email) {
-    //     alert("Please fill in all fields.");
-    //     return;
-    // }
 
     // Prepare API call
     let tmp = {
@@ -80,8 +91,6 @@ function validateInput(element, type) {
 
     // Assume invalid input
     let validity = false;
-
-
 
     if (type === "text") {
         validity = content.length >= 2;

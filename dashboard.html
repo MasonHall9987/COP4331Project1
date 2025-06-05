@@ -9,6 +9,7 @@
   <script type="text/javascript" src="js/code.js"></script>
   <script type="text/javascript" src="js/manage-dashboard.js"></script>
   <style>
+
     .contact-results {
       margin-top: 20px;
     }
@@ -34,7 +35,8 @@
   <!-- Navigation bar -->
   <div class="wrapper">
     <img src="images/logo.png" alt="Sapling Circle Logo" class="logo">     
-      <div class="motto" id="welcome-msg">Hello, user!</div>
+    <!-- Updated in readCookie() -->
+      <div class="motto" id="userName"></div>
  
     <ul>
       <li><a href="#" class="link" onclick="showAddContact()">Add Contact</a></li>
@@ -107,35 +109,16 @@
     <button class="btn" onclick="logout()">Logout</button>
   </div>
 
-  <!-- Uncomment below code when pushing -->
-
-  <script src="js/code.js"></script>
   <script>
     // Call readCookie when the page loads to ensure we have the userId
     window.onload = function() {
       readCookie();
-
-
-      validateOnInput("contactFirstName", "text");
-      validateOnInput("contactLastName", "text");
-      validateOnInput("contactPhone", "phoneNum");
-      validateOnInput("contactEmail", "email");
-    
-      // Display greeting in nav bar
-      const greetElement = document.getElementById("welcome-msg");
-      if (greetElement && typeof firstName !== "undefined") {
-        greetElement.textContent = "Hello, ${firstName}!";
-      }
     };
-
-    function validateOnInput(id, type) {
-      const element = document.getElementById(id);
-      element.addEventListener("input", () => validateInputField(element, type));
-    } 
 
     function logout() {
       doLogout();
     }
+
   </script>
 
 </body>
