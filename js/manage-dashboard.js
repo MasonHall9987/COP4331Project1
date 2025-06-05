@@ -17,7 +17,6 @@ window.addEventListener("load", function () {
   });
 });
 
-
 function addContact() { 
     // Ensure all fields are valid
     const isValid =
@@ -120,6 +119,83 @@ function showAddContact() {
     hideAllSections();
     document.getElementById("add-contact").classList.remove("hidden");
     document.getElementById("add-contact").scrollIntoView({ behavior: "smooth" });
+}
+
+function handleSearch()
+{
+	let searchTerm = document.getElementById("searchInput").value;
+	searchContact(searchTerm);
+}
+
+function searchContact(searchTerm = "") {
+  document.getElementById("searchResults").innerHTML = "";
+
+  let tmp = { search: searchTerm, userId: userId };
+  let jsonPayload = JSON.stringify(tmp);
+
+  let url = urlBase + "/SearchContact." + extension;
+
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+  try {
+    xhr.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        let jsonObject = JSON.parse(xhr.responseText);
+
+        if (!jsonObject.results || jsonObject.results.length === 0) {
+          document.getElementById("searchResults").innerHTML = "No contacts found.";
+          return;
+        }
+
+        let tableHTML = `
+          <table class="contact-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+        `;
+
+        for (let i = 0; i < jsonObject.results.length; i++) {
+          const contact = jsonObject.results[i];
+          tableHTML += `
+            <tr>
+              <td>${contact.FirstName} ${contact.LastName}</td>
+              <td>${contact.Phone}</td>
+              <td>${contact.Email}</td>
+              <td>
+                <button class="edit-btn" onclick="editContact(${contact.ID})">Edit</button>
+                <button class="delete-btn" onclick="deleteContact(${contact.ID})">Delete</button>
+              </td>
+            </tr>
+          `;
+        }
+
+        tableHTML += `
+            </tbody>
+          </table>
+        `;
+
+        document.getElementById("searchResults").innerHTML = tableHTML;
+      }
+    };
+    xhr.send(jsonPayload);
+  } catch (err) {
+    document.getElementById("searchResults").innerHTML = err.message;
+  }
+}
+
+function editContact() {
+
+}
+
+function deleteContact() {
+
 }
 
 function showSearchContact() {
