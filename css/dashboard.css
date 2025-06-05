@@ -1,95 +1,295 @@
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.3s ease;
 }
 
-.btn {
-  background-color: #7a7b80;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.3s ease;
+html, body {
+  height: 100%;
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  color: #ececec;
+  overflow-x: hidden;
 }
 
-.btn:hover {
-  background-color: #333;
-}
 
+
+/* ——— Container (Login/Signup/About) ——— */
 .box-container,
 .about-container {
-  background-color: rgba(255, 255, 255, 0.85);
-  padding: 30px;
-  border-radius: 12px;
-  width: 400px;
-  margin: 20px auto;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  max-width: 480px;
+  margin: 60px auto;
+  padding: 30px 25px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
   text-align: center;
+  color: #f1f1f1;
 }
 
 .box-container h3,
 .about-container h2 {
-  font-size: 22px;
-  color: #333;
-  margin-bottom: 20px;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+  color: #fffcfc;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
+/* ——— Input Fields ——— */
 .input-field {
   width: 100%;
-  padding: 10px 14px;
-  margin: 10px 0;
+  padding: 12px 16px;
+  margin: 12px 0;
   border: none;
-  border-radius: 20px;
-  background-color: #eee;
-  font-size: 14px;
+  border-radius: 25px;
+  background-color: rgba(255,255,255,0.2);
+  color: #f1f1f1;
+  font-size: 1rem;
+  outline: 2px solid transparent;
 }
 
-.submit {
-  width: 100%;
-  padding: 10px;
-  background-color: #999;
+.input-field::placeholder {
+  color: #ddd;
+  opacity: 0.8;
+}
+
+.input-field:focus {
+  outline: 2px solid #eadcf5;
+  background-color: rgba(255,255,255,0.3);
+}
+
+/* ——— Buttons ——— */
+.btn, .submit {
+  display: inline-block;
   border: none;
-  border-radius: 20px;
-  font-size: 15px;
-  font-weight: 500;
-  color: #fff;
+  border-radius: 25px;
+  padding: 12px 20px;
+  margin-top: 20px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  margin-top: 10px;
-  transition: background 0.3s ease;
+  background: linear-gradient(135deg, #95bfac, #9b79a9);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: background 0.4s ease, transform 0.2s ease;
 }
 
-.submit:hover {
-  background-color: #777;
+.btn:hover, .submit:hover {
+  background: linear-gradient(135deg, #447255, #b37ac9);
+  transform: translateY(-2px);
 }
 
+.btn:active, .submit:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* ——— Alert / Result Messages ——— */
+.alert {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #f1f1f1;
+}
+
+.alert.success {
+  color: #b6f1b6;
+}
+
+/* ——— About Text ——— */
 .about-container p {
-  font-size: 14px;
-  color: #444;
+  font-size: 1rem;
   line-height: 1.6;
-  margin-top: 10px;
+  color: #e0e0e0;
+  margin-top: 15px;
 }
 
+/* ——— Logout Button Wrapper ——— */
 .logout-button {
-  margin: 20px auto;
+  text-align: center;
+  margin: 30px auto;
 }
 
+/* ——— Hidden Utility ——— */
 .hidden {
-  display: none;
+  display: none !important;
 }
 
-/* edit and delete button */
-#edit-delete-buttons {
-  display: none;
+
+/* Style the results table */
+#searchResults table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#searchResults th,
+#searchResults td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  color: #ececec;
+}
+
+#searchResults th {
+  background: rgba(255, 255, 255, 0.15);
+  font-weight: 600;
+}
+
+#searchResults tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Style edit/delete buttons inside the table rows */
+.result-btn {
+  background: linear-gradient(135deg, #6e54a3, #9b59b6);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.result-btn:hover {
+  background: linear-gradient(135deg, #8b6cb5, #b37ac9);
+}
+
+.result-input {
+  width: 90%;
+  padding: 6px 8px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 4px;
+  background: rgba(0,0,0,0.1);
+  color: #eee;
+  font-size: 0.9rem;
+}
+
+
+
+
+/* ——— “About Us” Container ——— */
+.about-container {
+  padding: 40px 30px;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  max-width: 600px;    /* adjust as needed */
+  margin: 60px auto;   /* center on page */
+  color: #fffcfc;
+  text-align: center;
+}
+
+/* About heading */
+.about-container h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+
+/* ——— Grid Wrapper: 2 columns ——— */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  justify-items: center;  
+}
+
+/* ——— Individual Card ——— */
+.team-card {
+  width: 100%;
+  max-width: 260px;        /* each card max width */
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  padding: 20px 16px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect */
+.team-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+/* Avatar Circle */
+.team-card .avatar {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6e54a3, #9b59b6);
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin-top: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-#edit-delete-buttons .submit:disabled {
-  background-color: #bbb;
-  cursor: not-allowed;
+/* Name and Role */
+.team-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+  color: #fffcfc;
+}
+
+.team-card p {
+  font-size: 0.9rem;
+  color: #e0e0e0;
+  line-height: 1.4;
+}
+
+
+
+/* Responsive: adjust gap on small screens */
+@media (max-width: 600px) {
+  .wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 20px;
+  }
+
+  .wrapper .motto {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+
+  .wrapper ul {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .box-container,
+  .about-container {
+    width: 90%;
+    padding: 20px;
+    margin: 30px auto;
+  }
+
+  .box-container h3,
+  .about-container h2 {
+    font-size: 2rem;
+  }
+
+  .submit, .input-field, .btn {
+    font-size: 0.9rem;
+    padding: 10px 14px;
+  }
+
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .team-card {
+    max-width: 100%;
+  }
 }
