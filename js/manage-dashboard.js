@@ -85,6 +85,12 @@ function addContact() {
     }
 }
 
+function resetAddContactFields(id) {
+    const temp = document.getElementById(id);
+    temp.value = "";
+    temp.classList.remove("input-valid", "input-invalid");
+}
+
 function validateInput(element, type) {
 
     // Store user's input
