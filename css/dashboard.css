@@ -18,7 +18,7 @@ html, body {
 .box-container,
 .about-container {
   /* max-width: 480px; */
-  width: 550px;
+  width: 600px;
   margin: 60px auto;
   padding: 30px 25px;
   background: rgba(255, 255, 255, 0.1);

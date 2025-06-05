@@ -33,7 +33,8 @@ function addContact() {
     // Fetch user's input
     const firstName = document.getElementById("contactFirstName").value;
     const lastName = document.getElementById("contactLastName").value;
-    const phone = document.getElementById("contactPhone").value;
+    // Store only numerical portion of phone number
+    const phone = document.getElementById("contactPhone").value.replace(/\D/g, "");;
     const email = document.getElementById("contactEmail").value;
 
     // Prepare API call
@@ -170,18 +171,25 @@ function searchContact(searchTerm = "") {
         `;
 
         for (let i = 0; i < jsonObject.results.length; i++) {
-          const contact = jsonObject.results[i];
-          tableHTML += `
+            const contact = jsonObject.results[i];
+
+            // Attempt to format the phone number 
+            const digits = contact.Phone.replace(/\D/g, "");
+            const formattedPhone = digits.length === 10
+                ? `(${digits.substring(0, 3)}) ${digits.substring(3, 6)}-${digits.substring(6)}`
+                : contact.Phone; 
+
+            tableHTML += `
             <tr>
-              <td>${contact.FirstName} ${contact.LastName}</td>
-              <td>${contact.Phone}</td>
-              <td>${contact.Email}</td>
-              <td>
+                <td>${contact.FirstName} ${contact.LastName}</td>
+                <td>${formattedPhone}</td>
+                <td>${contact.Email}</td>
+                <td>
                 <button class="edit-btn" onclick="editContact(${contact.ID})">Edit</button>
                 <button class="delete-btn" onclick="deleteContact(${contact.ID})">Delete</button>
-              </td>
+                </td>
             </tr>
-          `;
+            `;
         }
 
         tableHTML += `
