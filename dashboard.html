@@ -69,7 +69,14 @@
   <div class="box-container hidden" id="search-contact">
     <h3>Search & Manage Contacts</h3>
     <div class="form-box">
-      <input type="text" class="input-field" placeholder="Enter name, email or phone" id="searchInput" />
+      <!-- Implement live search functionality -->
+    <input 
+      type="text" 
+      class="input-field" 
+      placeholder="Enter name, email or phone" 
+      id="searchInput" 
+      oninput="handleSearch()" />
+
     </div>
     <div class="form-box">
       <input type="submit" class="submit" value="Search" onclick="handleSearch()" />

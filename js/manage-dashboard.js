@@ -66,11 +66,13 @@ function addContact() {
                 else {
                     alert("'" + firstName + " " + lastName + "' added to contacts!");
 
+                    // element.classList.remove("input-valid", "input-invalid");
+
                     // Clear all fields
-                    document.getElementById("contactFirstName").value = "";
-                    document.getElementById("contactLastName").value = "";
-                    document.getElementById("contactPhone").value = "";
-                    document.getElementById("contactEmail").value = "";
+                    resetAddContactFields("contactFirstName");
+                    resetAddContactFields("contactLastName");
+                    resetAddContactFields("contactPhone");
+                    resetAddContactFields("contactEmail");
                 }
             }
         };
@@ -155,7 +157,7 @@ function searchContact(searchTerm = "") {
                 <th>Name</th>
                 <th>Phone</th>
                 <th>Email</th>
-                <th>Actions</th>
+                <th>Manage</th>
               </tr>
             </thead>
             <tbody>
