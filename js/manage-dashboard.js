@@ -3,10 +3,10 @@ function addContact() {
     // readCookie();
 
     const isValid =
-        validateInputField(document.getElementById("contactFirstName"), "text") &&
-        validateInputField(document.getElementById("contactLastName"), "text") &&
-        validateInputField(document.getElementById("contactPhone"), "phoneNum") &&
-        validateInputField(document.getElementById("contactEmail"), "email");
+        validateInput(document.getElementById("contactFirstName"), "text") &&
+        validateInput(document.getElementById("contactLastName"), "text") &&
+        validateInput(document.getElementById("contactPhone"), "phoneNum") &&
+        validateInput(document.getElementById("contactEmail"), "email");
 
     if (!isValid) {
         alert("Unable to add new contact. Please correct invalid input.");
@@ -101,7 +101,7 @@ function validateInput(element, type) {
 
     if (content !== "") {
         // Assign the element a class based on its validity
-        inputElement.classList.add(isValid ? "input-valid" : "input-invalid");
+        element.classList.add(validity ? "input-valid" : "input-invalid");
     }
 
     return validity;
