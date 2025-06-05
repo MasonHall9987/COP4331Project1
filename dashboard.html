@@ -9,6 +9,7 @@
   <script type="text/javascript" src="js/code.js"></script>
   <script type="text/javascript" src="js/manage-dashboard.js"></script>
   <style>
+
     .contact-results {
       margin-top: 20px;
     }
@@ -33,7 +34,10 @@
 
   <!-- Navigation bar -->
   <div class="wrapper">
-    <img src="images/logo.png" alt="Sapling Circle Logo" class="logo">      
+    <img src="images/logo.png" alt="Sapling Circle Logo" class="logo">     
+    <!-- Updated in readCookie() -->
+      <div class="motto" id="userName"></div>
+ 
     <ul>
       <li><a href="#" class="link" onclick="showAddContact()">Add Contact</a></li>
       <li><a href="#" class="link" onclick="showSearchContact()">Search Contact</a></li>
@@ -45,16 +49,16 @@
   <div class="box-container" id="add-contact">
     <h3>Add Contact</h3>
     <div class="form-box">
-      <input type="text" class="input-field" placeholder="First Name" id="contactFirstName" />
+      <input type="text" class="input-field" placeholder="First Name *" id="contactFirstName" />
     </div>
     <div class="form-box">
-      <input type="text" class="input-field" placeholder="Last Name" id="contactLastName" />
+      <input type="text" class="input-field" placeholder="Last Name *" id="contactLastName" />
     </div>
     <div class="form-box">
-      <input type="text" class="input-field" placeholder="Phone Number" id="contactPhone" />
+      <input type="text" class="input-field" placeholder="Phone Number *" id="contactPhone" />
     </div>
     <div class="form-box">
-      <input type="text" class="input-field" placeholder="Email" id="contactEmail" />
+      <input type="text" class="input-field" placeholder="Email *" id="contactEmail" />
     </div>
     <div class="form-box">
       <input type="submit" class="submit" value="Add Contact" onclick="addContact()" />
@@ -63,9 +67,16 @@
 
   <!-- Search Contact Section -->
   <div class="box-container hidden" id="search-contact">
-    <h3>Search Contact</h3>
+    <h3>Search & Manage Contacts</h3>
     <div class="form-box">
-      <input type="text" class="input-field" placeholder="Enter name, email or phone" id="searchInput" />
+      <!-- Implement live search functionality -->
+    <input 
+      type="text" 
+      class="input-field" 
+      placeholder="Enter name, email or phone" 
+      id="searchInput" 
+      oninput="handleSearch()" />
+
     </div>
     <div class="form-box">
       <input type="submit" class="submit" value="Search" onclick="handleSearch()" />
@@ -73,23 +84,38 @@
     <div class="form-box" id="searchResults"></div>
   </div>
 
-  <!-- About Section -->
+ <!-- About Section -->
   <div class="about-container hidden" id="about">
-    <h2>About Us</h2>
-    <p>
-      <strong>Hall, Madson:</strong> Database, API<br/>
-      <strong>Lee, Brian:</strong> Project Manager<br/>
-      <strong>Chaj-Mejia, Junior:</strong> Front-end<br/>
-      <strong>Tran, Tuyen:</strong> Front-end<br/>
-    </p>
+  <h2>About Us</h2>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="avatar">MH</div>
+      <h3>Hall, Mason</h3>
+      <p>Database &amp; API</p>
+    </div>
+    <div class="team-card">
+      <div class="avatar">BL</div>
+      <h3>Lee, Brian</h3>
+      <p>Project Manager</p>
+    </div>
+    <div class="team-card">
+      <div class="avatar">JC</div>
+      <h3>Chaj‐Mejia, Junior</h3>
+      <p>Front‐end</p>
+    </div>
+    <div class="team-card">
+      <div class="avatar">TT</div>
+      <h3>Tran, Tuyen</h3>
+      <p>Front‐end</p>
+    </div>
   </div>
+</div>
 
   <!-- Logout Button -->
   <div class="logout-button">
     <button class="btn" onclick="logout()">Logout</button>
   </div>
 
-  <script src="js/code.js"></script>
   <script>
     // Call readCookie when the page loads to ensure we have the userId
     window.onload = function() {
@@ -99,6 +125,7 @@
     function logout() {
       doLogout();
     }
+
   </script>
 
 </body>

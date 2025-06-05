@@ -167,7 +167,7 @@ function readCookie()
 	}
 	else
 	{
-		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+		document.getElementById("userName").innerHTML = "Hello, " + firstName + "!";
 	}
 }
 
@@ -254,57 +254,6 @@ function searchColor()
 		document.getElementById("colorSearchResult").innerHTML = err.message;
 	}
 	
-}
-
-function searchContact(searchTerm = "")
-{
-	document.getElementById("searchResults").innerHTML = "";
-	
-	let contactList = "";
-
-	let tmp = {search:searchTerm, userId:userId};
-	let jsonPayload = JSON.stringify( tmp );
-
-	let url = urlBase + '/SearchContact.' + extension;
-	
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("searchResults").innerHTML = "Contact(s) has been retrieved";
-				let jsonObject = JSON.parse( xhr.responseText );
-				
-				for( let i=0; i<jsonObject.results.length; i++ )
-				{
-					contactList += jsonObject.results[i].FirstName + " " + jsonObject.results[i].LastName;
-					contactList += "<br />Phone: " + jsonObject.results[i].Phone;
-					contactList += "<br />Email: " + jsonObject.results[i].Email;
-					if( i < jsonObject.results.length - 1 )
-					{
-						contactList += "<br /><br />";
-					}
-				}
-				
-				document.getElementById("searchResults").innerHTML = contactList;
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("searchResults").innerHTML = err.message;
-	}
-}
-
-function handleSearch()
-{
-	let searchTerm = document.getElementById("searchInput").value;
-	searchContact(searchTerm);
 }
 
 // Tab switching functions for login/register forms
