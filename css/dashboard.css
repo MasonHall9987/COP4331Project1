@@ -336,3 +336,32 @@ html, body {
   background-color: #dc3545;
   color: white;
 }
+
+/* Contact output table fields */
+
+.name-fields {
+  display: flex;
+  gap: 6px; 
+  align-items: center;
+}
+
+.name-fields input {
+  flex: 1 1 auto;
+  min-width: 0; 
+}
+
+input[disabled] {
+  background-color: transparent;
+  border: none;
+  color: inherit; 
+  font: inherit; 
+  cursor: default;
+  outline: none;  
+  padding: 0;
+}
+
+input:enabled {
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 2px 4px;
+}

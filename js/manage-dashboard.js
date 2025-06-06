@@ -182,10 +182,12 @@ function searchContact(searchTerm = "") {
             // Make display fields disabled input boxes for editing
             tableHTML += `
             <tr id="row-${contact.ID}">
-                <td>
+              <td>
+                <div class="name-fields">
                   <input id="firstName-${contact.ID}" value="${contact.FirstName}" disabled />
                   <input id="lastName-${contact.ID}" value="${contact.LastName}" disabled />
-                </td>
+                </div>
+              </td>
 
                 <td>
                   <input id="phone-${contact.ID}" value="${formattedPhone}" disabled />
@@ -218,7 +220,18 @@ function searchContact(searchTerm = "") {
   }
 }
 
+// Global object to store contact being currently edited
+const editCache = {};
+
 function editContact(id) {
+  // Store contact in the cache
+  editCache[id] = {
+    FirstName: document.getElementById(`firstName-${id}`).value,
+    LastName: document.getElementById(`lastName-${id}`).value,
+    Phone: document.getElementById(`phone-${id}`).value,
+    Email: document.getElementById(`email-${id}`).value,
+  };
+
   // Enable input fields for in-place editing
   document.getElementById(`firstName-${id}`).disabled = false;
   document.getElementById(`lastName-${id}`).disabled = false;
@@ -241,8 +254,7 @@ function confirmEdit(id) {
   const phone = document.getElementById(`phone-${id}`).value.replace(/\D/g, "");
   const email = document.getElementById(`email-${id}`).value.trim();
 
-  // Validate input
-
+  /* To do: validate input */
 
   const tmp = {
     id,
@@ -267,6 +279,8 @@ function confirmEdit(id) {
         const res = JSON.parse(xhr.responseText);
         if (res.error === "") {
           alert("Successfully updated contact!");
+          // Remove deleted contact info from the cache
+          delete editCache[id];
           // Preserve the user's current search term
           const currentTerm = document.getElementById("searchInput").value;
           searchContact(currentTerm);
@@ -279,6 +293,39 @@ function confirmEdit(id) {
   catch (error) {
     alert("Error editing contact: " + error.message);
   }
+}
+
+function cancelEdit(id) {
+
+ const record = editCache[id];
+
+  if (!record) {
+    console.warn(`Unable to restore info for contact ID ${id}`);
+    return;
+  }
+
+  // Restore the contact's info in case user had modified it
+  document.getElementById(`firstName-${id}`).value = record.FirstName;
+  document.getElementById(`lastName-${id}`).value = record.LastName;
+  document.getElementById(`phone-${id}`).value = record.Phone;
+  document.getElementById(`email-${id}`).value = record.Email;
+
+  // Delete stored contact info
+  delete editCache[id];
+
+  // Disable the input fields
+  document.getElementById(`firstName-${id}`).disabled = true;
+  document.getElementById(`lastName-${id}`).disabled = true;
+  document.getElementById(`phone-${id}`).disabled = true;
+  document.getElementById(`email-${id}`).disabled = true;
+
+  // Restore the action buttons (Edit / Delete)
+  const td = document.getElementById(`manage-${id}`);
+  td.innerHTML = `
+    <button class="edit-btn" onclick="editContact(${id})">Edit</button>
+    <button class="delete-btn" onclick="deleteContact(${id})">Delete</button>
+  `;
+
 }
 
 function deleteContact(contactId, fName, lName) {
