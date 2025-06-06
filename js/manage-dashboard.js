@@ -233,8 +233,11 @@ function deleteContact(contactId, fName, lName) {
       
         let res = JSON.parse(xhr.responseText);
         // Refresh contacts after deletion
-        if (res.error === "") 
-          searchContact();
+        if (res.error === "") {
+          // Preserve the user's current search term
+          const currentTerm = document.getElementById("searchInput").value;
+          searchContact(currentTerm);
+        }
 
         else 
           alert("Error deleting contact: " + res.error);
