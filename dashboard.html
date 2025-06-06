@@ -66,23 +66,24 @@
   </div>
 
   <!-- Search Contact Section -->
-   <div class="box-container hidden" id="search-contact" style="width: 1000px;">
-    <h3>Search & Manage Contacts</h3>
-    <div class="form-box">
-      <!-- Implement live search functionality -->
+  <div class="form-box" style="display: flex; gap: 10px; align-items: center;">
     <input 
       type="text" 
       class="input-field" 
       placeholder="Enter name, email or phone" 
       id="searchInput" 
-      oninput="handleSearch()" />
+      oninput="handleSearch()" 
+      style="flex: 1;" />
 
-    </div>
-    <div class="form-box">
-      <input type="submit" class="submit" value="Search" onclick="handleSearch()" />
-    </div>
-    <div class="form-box" id="searchResults"></div>
+    <input 
+      type="submit" 
+      class="submit" 
+      value="Search" 
+      onclick="handleSearch()" 
+      style="margin-top: 0;" />
   </div>
+
+  <div class="form-box" id="searchResults"></div>
 
  <!-- About Section -->
   <div class="about-container hidden" id="about">
