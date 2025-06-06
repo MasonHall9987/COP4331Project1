@@ -350,18 +350,17 @@ html, body {
   min-width: 0; 
 }
 
-input[disabled] {
+.contact-table input[disabled] {
   background-color: transparent;
   border: none;
-  color: inherit; 
-  font: inherit; 
+  color: inherit;
+  font: inherit;
   cursor: default;
-  outline: none;  
+  outline: none;
   padding: 0;
 }
 
-input:enabled {
+.contact-table input:enabled {
   background-color: white;
-  border: 1px solid #ccc;
-  padding: 2px 4px;
+  font: inherit;
 }

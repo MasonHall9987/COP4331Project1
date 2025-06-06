@@ -242,8 +242,8 @@ function editContact(id) {
   const td = document.getElementById(`manage-${id}`);
 
   td.innerHTML = `
-    <button onclick="confirmEdit(${id})">Confirm</button>
-    <button onclick="cancelEdit(${id})">Cancel</button>
+    <button class="edit-btn" onclick="confirmEdit(${id})">Confirm</button>
+    <button class="delete-btn" onclick="cancelEdit(${id})">Cancel</button>
   `;
 }
 
