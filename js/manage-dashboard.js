@@ -179,15 +179,26 @@ function searchContact(searchTerm = "") {
                 ? `(${digits.substring(0, 3)}) ${digits.substring(3, 6)}-${digits.substring(6)}`
                 : contact.Phone; 
 
+            // Make display fields disabled input boxes for editing
             tableHTML += `
-            <tr>
-                <td>${contact.FirstName} ${contact.LastName}</td>
-                <td>${formattedPhone}</td>
-                <td>${contact.Email}</td>
+            <tr id="row-${contact.ID}">
                 <td>
-                <button class="edit-btn" onclick="editContact(${contact.ID})">Edit</button>
-                <button class="delete-btn" onclick="deleteContact(${contact.ID}, 
-                  '${contact.FirstName}', '${contact.LastName}')">Delete</button>
+                  <input id="firstName-${contact.ID}" value="${contact.FirstName}" disabled />
+                  <input id="lastName-${contact.ID}" value="${contact.LastName}" disabled />
+                </td>
+
+                <td>
+                  <input id="phone-${contact.ID}" value="${formattedPhone}" disabled />
+                </td>
+
+                <td>
+                  <input id="email-${contact.ID}" value="${contact.Email}" disabled />
+                </td>
+
+                <td id="manage-${contact.ID}">
+                  <button class="edit-btn" onclick="editContact(${contact.ID})">Edit</button>
+                  <button class="delete-btn" onclick="deleteContact(${contact.ID}, 
+                    '${contact.FirstName}', '${contact.LastName}')">Delete</button>
                 </td>
             </tr>
             `;
@@ -207,8 +218,67 @@ function searchContact(searchTerm = "") {
   }
 }
 
-function editContact() {
+function editContact(id) {
+  // Enable input fields for in-place editing
+  document.getElementById(`firstName-${id}`).disabled = false;
+  document.getElementById(`lastName-${id}`).disabled = false;
+  document.getElementById(`phone-${id}`).disabled = false;
+  document.getElementById(`email-${id}`).disabled = false;
 
+  // Replace buttons with confirm and cancel
+  const td = document.getElementById(`manage-${id}`);
+
+  td.innerHTML = `
+    <button onclick="confirmEdit(${id})">Confirm</button>
+    <button onclick="cancelEdit(${id})">Cancel</button>
+  `;
+}
+
+function confirmEdit(id) {
+  // Fetch user's input
+  const firstName = document.getElementById(`firstName-${id}`).value.trim();
+  const lastName = document.getElementById(`lastName-${id}`).value.trim();
+  const phone = document.getElementById(`phone-${id}`).value.replace(/\D/g, "");
+  const email = document.getElementById(`email-${id}`).value.trim();
+
+  // Validate input
+
+
+  const tmp = {
+    id,
+    firstName,
+    lastName,
+    phone,
+    email
+  }
+
+  const payload = JSON.stringify(tmp);
+  const url = urlBase + "/EditContact." + extension;
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try {
+    xhr.onreadystatechange = function() {
+
+      if (this.readyState == 4 && this.status == 200) {
+        
+        const res = JSON.parse(xhr.responseText);
+        if (res.error === "") {
+          alert("Successfully updated contact!");
+          // Preserve the user's current search term
+          const currentTerm = document.getElementById("searchInput").value;
+          searchContact(currentTerm);
+        }
+        else 
+          alert("Error: " + res.error);
+      }
+    };
+  }
+  catch (error) {
+    alert("Error editing contact: " + error.message);
+  }
 }
 
 function deleteContact(contactId, fName, lName) {
