@@ -186,7 +186,8 @@ function searchContact(searchTerm = "") {
                 <td>${contact.Email}</td>
                 <td>
                 <button class="edit-btn" onclick="editContact(${contact.ID})">Edit</button>
-                <button class="delete-btn" onclick="deleteContact(${contact.ID})">Delete</button>
+                <button class="delete-btn" onclick="deleteContact(${contact.ID}, 
+                  '${contact.FirstName}', '${contact.LastName}')">Delete</button>
                 </td>
             </tr>
             `;
@@ -210,8 +211,42 @@ function editContact() {
 
 }
 
-function deleteContact() {
+function deleteContact(contactId, fName, lName) {
+  // Prompt user to confirm deletion
+  let txt = "Are you sure you want to delete " + fName + " " + lName + "?";
+  if (!confirm(txt)) 
+    return;
 
+  // Prepare API call
+  let tmp = {id : contactId};
+  let payload = JSON.stringify(tmp);
+  let url = urlBase + "/DeleteContact." + extension;
+
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try {
+    xhr.onreadystatechange = function() {
+
+      if (this.readyState == 4 && this.status == 200) {
+      
+        let res = JSON.parse(xhr.responseText);
+        // Refresh contacts after deletion
+        if (res.error === "") 
+          searchContact();
+
+        else 
+          alert("Error deleting contact: " + res.error);
+
+      }
+    };
+
+    xhr.send(payload);
+  }
+  catch (error) {
+    alert("Error deleting contact: " + error.message);
+  }
 }
 
 function showSearchContact() {
