@@ -289,6 +289,7 @@ function confirmEdit(id) {
           alert("Error: " + res.error);
       }
     };
+    xhr.send(payload);
   }
   catch (error) {
     alert("Error editing contact: " + error.message);
