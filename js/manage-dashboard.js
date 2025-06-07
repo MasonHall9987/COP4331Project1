@@ -22,7 +22,7 @@ const editCache = {};
 
 // Global objects to implement pagination
 let currentPage = 1;
-const resultsPerPage = 5;
+const resultsPerPage = 4;
 let contactsCache = [];
 
 function addContact() { 
@@ -234,7 +234,7 @@ function renderPaginatedResults() {
     </table>
     <div class="pagination-controls">
       <button onclick="prevPage()" ${currentPage === 1 ? "disabled" : ""}>Previous</button>
-      <span>Page ${currentPage} of ${Math.ceil(contactsCache.length / resultsPerPage)}</span>
+      <span>${currentPage} of ${Math.ceil(contactsCache.length / resultsPerPage)}</span>
       <button onclick="nextPage()" ${end >= contactsCache.length ? "disabled" : ""}>Next</button>
     </div>
   `;
@@ -276,7 +276,7 @@ function editContact(id) {
   const td = document.getElementById(`manage-${id}`);
 
   td.innerHTML = `
-    <button class="edit-btn" onclick="confirmEdit(${id})">Confirm</button>
+    <button class="confirm-btn" onclick="confirmEdit(${id})">Confirm</button>
     <button class="delete-btn" onclick="cancelEdit(${id})">Cancel</button>
   `;
 }
