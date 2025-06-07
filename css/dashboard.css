@@ -1,4 +1,3 @@
-
 * {
   margin: 0;
   padding: 0;
@@ -335,4 +334,56 @@ html, body {
 .delete-btn {
   background-color: #dc3545;
   color: white;
+}
+
+/* Contact output table fields */
+
+.name-fields {
+  display: flex;
+  gap: 6px; 
+  align-items: center;
+}
+
+.name-fields input {
+  flex: 1 1 auto;
+  min-width: 0; 
+}
+
+.contact-table input[disabled] {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: default;
+  outline: none;
+  padding: 0;
+}
+
+.contact-table input:enabled {
+  background-color: white;
+  font: inherit;
+}
+
+.pagination-controls {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.pagination-controls button {
+  margin: 0 5px;
+  padding: 5px 10px;
+}
+
+.confirm-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.confirm-btn:hover {
+  background-color: #218838;
 }

@@ -40,8 +40,8 @@
  
     <ul>
       <li><a href="#" class="link" onclick="showAddContact()">Add Contact</a></li>
-      <li><a href="#" class="link" onclick="showSearchContact()">Search Contact</a></li>
-      <li><a href="#" class="link" onclick="showAbout()">About</a></li>
+      <li><a href="#" class="link" onclick="showSearchContact()">Manage Contacts</a></li>
+      <li><a href="#" class="link" onclick="showAbout()">About Us</a></li>
     </ul>
   </div>
 
@@ -66,21 +66,26 @@
   </div>
 
   <!-- Search Contact Section -->
-  <div class="box-container hidden" id="search-contact">
-    <h3>Search & Manage Contacts</h3>
-    <div class="form-box">
-      <!-- Implement live search functionality -->
-    <input 
-      type="text" 
-      class="input-field" 
-      placeholder="Enter name, email or phone" 
-      id="searchInput" 
-      oninput="handleSearch()" />
+   <div class="box-container hidden" id="search-contact" style="width: 1000px;">
+    <h3>Manage Contacts</h3>
 
+    <div class="form-box" style="display: flex; gap: 10px; align-items: center;">
+      <input 
+        type="text" 
+        class="input-field" 
+        placeholder="Enter name, email or phone" 
+        id="searchInput" 
+        oninput="handleSearch()" 
+        style="flex: 1;" />
+
+      <input 
+        type="submit" 
+        class="submit" 
+        value="Search" 
+        onclick="handleSearch()" 
+        style="margin-top: 0;" />
     </div>
-    <div class="form-box">
-      <input type="submit" class="submit" value="Search" onclick="handleSearch()" />
-    </div>
+
     <div class="form-box" id="searchResults"></div>
   </div>
 
