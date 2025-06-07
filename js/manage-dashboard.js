@@ -324,9 +324,9 @@ function cancelEdit(id) {
   const td = document.getElementById(`manage-${id}`);
   td.innerHTML = `
     <button class="edit-btn" onclick="editContact(${id})">Edit</button>
-    <button class="delete-btn" onclick="deleteContact(${id})">Delete</button>
+    <button class="delete-btn" onclick="deleteContact(${id}, 
+      '${record.FirstName}', '${record.LastName}')">Delete</button>
   `;
-
 }
 
 function deleteContact(contactId, fName, lName) {
